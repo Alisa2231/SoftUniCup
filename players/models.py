@@ -5,8 +5,19 @@ from django.utils.text import slugify
 
 class Player(models.Model):
     class Positions(models.TextChoices):
-        GOAL_KEEPER = 'GK', "Goal Keeper"
-        #TODO: check with Pepi
+        GK = 'GK', "Goalkeeper"
+        RB = 'RB', "Right Back"
+        CB = 'CB', "Center Back"
+        LB = 'LB', "Left Back"
+        CDM ='CDM', "Center Defensive Midfielder"
+        CM = 'CM', "Center Midfielder"
+        CAM = 'CAM', "Center Attacking Midfielder"
+        RM = 'RM', "Right Midfielder"
+        LM = 'LM', "Left Midfielder"
+        LW = 'LW', "Left Winger"
+        RW = 'RW', "Right Winger"
+        CF = 'CF', "Center Forward"
+        ST = 'ST', "Striker"
 
     class PreferredFoot(models.TextChoices):
         RIGHT = 'R', "Right"
@@ -15,11 +26,13 @@ class Player(models.Model):
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    nationality = models.CharField(max_length=100, null=True, blank=True)
     birth_date = models.DateField()
     shirt_number = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(99)])
     main_position = models.CharField(max_length=100, choices = Positions)
+    secondary_position = models.CharField(max_length=100, choices = Positions, null=True, blank=True)
     preferred_foot = models.CharField(max_length=100, choices = PreferredFoot)
-    height = models.PositiveIntegerField(null=True, blank=True)
+    height = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(0)], null=True, blank=True)
     # weight = models.PositiveIntegerField(null=True, blank=True)
     image = models.ImageField(upload_to='players/', null=True, blank=True)
     # slug = models.SlugField(unique=True, editable=False)
