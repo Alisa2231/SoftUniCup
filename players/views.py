@@ -47,6 +47,9 @@ def player_delete_view(request, team_slug, pk):
     context = {'team': team, 'player': player, 'page_title': f'Delete Player of {team.name}'}
     return render(request, 'players/delete_player.html', context)
 
-class PlayerDetailsView(DetailView):
-    model = Player
-    template_name = 'players/player_details.html'
+def player_details_view(request, team_slug, pk):
+    team = get_object_or_404(Team, slug=team_slug)
+    player = get_object_or_404(Player, team=team, pk=pk)
+
+    context = {'team': team, 'player': player, 'page_title': f'Player Details for {player.first_name} {player.last_name}'}
+    return render(request, 'players/player_details.html', context)

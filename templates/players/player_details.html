@@ -1,0 +1,227 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<div class="player-details-page">
+    <div class="player-details-container">
+
+        <!-- Breadcrumb -->
+        <nav class="player-breadcrumb" aria-label="Breadcrumb">
+            <a href="{% url 'teams:details' slug=team.slug %}">
+                <i class="bi bi-shield"></i>
+                {{ team.name }}
+            </a>
+            <i class="bi bi-chevron-right"></i>
+            <span>Player Details</span>
+        </nav>
+
+        <!-- Player Profile Header -->
+        <section class="player-profile-card">
+            <div class="player-profile-top">
+                <div class="player-profile-image">
+                    {% if player.image %}
+                        <img src="{{ player.image.url }}"
+                             alt="{{ player.first_name }} {{ player.last_name }}">
+                    {% else %}
+                        <div class="player-image-placeholder">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="player-profile-heading">
+                    <p class="player-eyebrow">
+                        <i class="bi bi-person-badge"></i>
+                        PLAYER PROFILE
+                    </p>
+
+                    <h1>{{ player.first_name }} {{ player.last_name }}</h1>
+
+                    <p class="player-team-name">
+                        <i class="bi bi-shield-fill"></i>
+                        {{ team.name }}
+                    </p>
+
+                    <div class="player-profile-tags">
+                        <span class="player-position-tag">
+                            {{ player.get_main_position_display }}
+                        </span>
+
+                        {% if player.nationality %}
+                            <span class="player-nationality-tag">
+                                <i class="bi bi-globe"></i>
+                                {{ player.nationality }}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="player-shirt-number">
+                    <span class="shirt-number-label">SHIRT</span>
+                    <span class="shirt-number-value">
+                        {{ player.shirt_number }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="player-profile-actions">
+                <a href="{% url 'players:update' team_slug=team.slug pk=player.pk %}"
+                   class="player-action-btn player-edit-btn">
+                    <i class="bi bi-pencil-square"></i>
+                    Edit Player
+                </a>
+
+                <a href="{% url 'players:delete' team_slug=team.slug pk=player.pk %}"
+                   class="player-action-btn player-delete-btn">
+                    <i class="bi bi-trash3"></i>
+                    Delete Player
+                </a>
+
+                <a href="{% url 'teams:details' slug=team.slug %}"
+                   class="player-action-btn player-back-btn">
+                    <i class="bi bi-arrow-left"></i>
+                    Back to Team
+                </a>
+            </div>
+        </section>
+
+        <!-- Player Information -->
+        <div class="player-details-grid">
+
+            <!-- Personal Information -->
+            <section class="player-info-card">
+                <div class="player-info-card-heading">
+                    <div class="player-info-icon">
+                        <i class="bi bi-person-lines-fill"></i>
+                    </div>
+                    <div>
+                        <h2>Personal Information</h2>
+                        <p>Basic player details</p>
+                    </div>
+                </div>
+
+                <div class="player-info-list">
+                    <div class="player-info-row">
+                        <span class="player-info-label">First Name</span>
+                        <span class="player-info-value">
+                            {{ player.first_name }}
+                        </span>
+                    </div>
+
+                    <div class="player-info-row">
+                        <span class="player-info-label">Last Name</span>
+                        <span class="player-info-value">
+                            {{ player.last_name }}
+                        </span>
+                    </div>
+
+                    <div class="player-info-row">
+                        <span class="player-info-label">Nationality</span>
+                        <span class="player-info-value">
+                            {{ player.nationality }}
+                        </span>
+                    </div>
+
+                    <div class="player-info-row">
+                        <span class="player-info-label">Birth Year</span>
+                        <span class="player-info-value">
+                            {{ player.birth_year }}
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Football Information -->
+            <section class="player-info-card">
+                <div class="player-info-card-heading">
+                    <div class="player-info-icon">
+                        <i class="bi bi-dribbble"></i>
+                    </div>
+                    <div>
+                        <h2>Football Information</h2>
+                        <p>Position and playing attributes</p>
+                    </div>
+                </div>
+
+                <div class="player-info-list">
+                    <div class="player-info-row">
+                        <span class="player-info-label">Shirt Number</span>
+                        <span class="player-info-value">
+                            #{{ player.shirt_number }}
+                        </span>
+                    </div>
+
+                    <div class="player-info-row">
+                        <span class="player-info-label">Main Position</span>
+                        <span class="player-info-value">
+                            {{ player.get_main_position_display }}
+                        </span>
+                    </div>
+
+                    <div class="player-info-row">
+                        <span class="player-info-label">Secondary Position</span>
+                        <span class="player-info-value">
+                            {% if player.secondary_position %}
+                                {{ player.get_secondary_position_display }}
+                            {% else %}
+                                <span class="player-not-provided">Not specified</span>
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <div class="player-info-row">
+                        <span class="player-info-label">Preferred Foot</span>
+                        <span class="player-info-value">
+                            {% if player.preferred_foot %}
+                                {{ player.get_preferred_foot_display }}
+                            {% else %}
+                                <span class="player-not-provided">Not specified</span>
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <div class="player-info-row">
+                        <span class="player-info-label">Height</span>
+                        <span class="player-info-value">
+                            {% if player.height %}
+                                {{ player.height }} cm
+                            {% else %}
+                                <span class="player-not-provided">Not specified</span>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Team Information -->
+        <section class="player-team-card">
+            <div class="player-team-card-icon">
+                <i class="bi bi-shield-fill"></i>
+            </div>
+
+            <div class="player-team-card-content">
+                <span class="player-info-label">CURRENT TEAM</span>
+                <h2>{{ team.name }}</h2>
+                <p>
+                    <i class="bi bi-geo-alt"></i>
+                    {{ team.city }}
+                </p>
+            </div>
+
+            {% if team.logo %}
+                <img class="player-team-logo"
+                     src="{{ team.logo.url }}"
+                     alt="{{ team.name }} logo">
+            {% endif %}
+
+            <a href="{% url 'teams:details' slug=team.slug %}"
+               class="player-team-link"
+               aria-label="View {{ team.name }} details">
+                <i class="bi bi-arrow-up-right"></i>
+            </a>
+        </section>
+
+    </div>
+</div>
+{% endblock %}
