@@ -1,0 +1,95 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="teams-section">
+
+    <div class="teams-header">
+        <div>
+            <h1 class="section-title-team-list">
+                <i class="bi bi-people-fill"></i>
+                Teams
+            </h1>
+            <p class="section-subtitle-team-list">
+                Discover the teams participating in the SoftUni Cup.
+            </p>
+        </div>
+
+        <a href="{% url 'teams:add' %}" class="btn btn-accent btn-lg">
+            <i class="bi bi-plus-lg me-2"></i>
+            Register New Team
+            <i class="bi bi-arrow-right ms-2"></i>
+        </a>
+    </div>
+
+    <div class="teams-grid">
+        {% for team in teams %}
+            <article class="team-card">
+
+                <a href="{% url 'teams:details' slug=team.slug %}"
+                   class="team-card-main">
+
+                    <div class="team-logo-wrapper">
+                        {% if team.logo %}
+                            <img src="{{ team.logo.url }}"
+                                 alt="{{ team.name }} logo"
+                                 class="team-logo">
+                        {% else %}
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcb-I7MlY_JylyWWVYe2-RkfNDeRfz5yq5kFnRhEhUwA&s=10"
+                                 alt="Default team logo"
+                                 class="team-logo">
+                        {% endif %}
+                    </div>
+
+                    <h2 class="team-name">{{ team.name }}</h2>
+
+                    <p class="team-city">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        {{ team.city }}
+                    </p>
+
+                </a>
+
+                <div class="team-card-divider"></div>
+
+                <div class="team-coach">
+                    <div class="coach-image-wrapper">
+                        {% if team.coach_image %}
+                            <img src="{{ team.coach_image.url }}"
+                                 alt="Photo of {{ team.coach_name }}"
+                                 class="coach-image">
+                        {% else %}
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYZnMyonIwXS4djGAqZ4g9iKPHk2FjS0mJq7gBq5zVHw&s=10"
+                                 alt="Default coach photo"
+                                 class="coach-image">
+                        {% endif %}
+                    </div>
+
+                    <div class="coach-info">
+                        <span class="coach-label">HEAD COACH</span>
+                        <p class="coach-name">{{ team.coach_name }}</p>
+                    </div>
+                </div>
+
+            </article>
+        {% empty %}
+            <div class="teams-empty">
+                <i class="bi bi-shield-plus"></i>
+                <h2>No teams registered yet</h2>
+                <p>Be the first to register a team for the SoftUni Cup!</p>
+                <a href="{% url 'teams:add' %}" class="btn btn-accent">
+                    Register Your Team
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="form-notice teams-notice">
+        <i class="bi bi-info-circle-fill"></i>
+        <span>
+            Every team brings unique talent, passion and ambition to the SoftUni Cup!
+        </span>
+    </div>
+
+</section>
+{% endblock %}

@@ -1,0 +1,287 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="team-details-page">
+
+    <!-- Team profile header -->
+    <div class="team-profile-card">
+        <div class="team-profile-identity">
+            <div class="team-profile-logo">
+                {% if team.logo %}
+                    <img src="{{ team.logo.url }}"
+                         alt="{{ team.name }} logo">
+                {% else %}
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcb-I7MlY_JylyWWVYe2-RkfNDeRfz5yq5kFnRhEhUwA&s=10"
+                         alt="Default team logo">
+                {% endif %}
+            </div>
+
+            <div class="team-profile-heading">
+                <span class="profile-eyebrow">CLUB PROFILE</span>
+                <h1>{{ team.name }}</h1>
+                <p class="team-profile-city">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    {{ team.city }}
+                </p>
+
+                {% if team.established_year %}
+                    <p class="team-established">
+                        <i class="bi bi-calendar3"></i>
+                        Established in {{ team.established_year }}
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="team-profile-actions">
+            <a href="{% url 'teams:add' %}"
+               class="btn btn-accent">
+                <i class="bi bi-pencil-square me-2"></i>
+                Add Players
+            </a>
+
+            <a href="{% url 'teams:update' slug=team.slug%}"
+               class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-2"></i>
+                Edit Team Details
+            </a>
+
+            <a href="{% url 'teams:delete' slug=team.slug%}"
+               class="btn btn-outline-danger">
+                <i class="bi bi-trash3 me-2"></i>
+                Delete Team
+            </a>
+        </div>
+    </div>
+
+    <!-- Team statistics -->
+    <div class="team-stats-grid">
+        <div class="team-stat-card">
+            <span class="team-stat-label">CURRENT POINTS</span>
+            <strong class="team-stat-value">{{ current_points|default:'-' }}</strong>
+            <span class="team-stat-caption">From finished games</span>
+        </div>
+
+        <div class="team-stat-card">
+            <span class="team-stat-label">PLAYERS</span>
+            <strong class="team-stat-value">{{ team.players.count|default:'-' }}</strong>
+            <span class="team-stat-caption">Registered squad</span>
+        </div>
+
+        <div class="team-stat-card">
+            <span class="team-stat-label">ESTABLISHED</span>
+            <strong class="team-stat-value">
+                {% if team.established_year %}
+                    {{ team.established_year }}
+                {% else %}
+                    —
+                {% endif %}
+            </strong>
+            <span class="team-stat-caption">Year founded</span>
+        </div>
+    </div>
+
+    <!-- Coach profile -->
+    <section class="details-section">
+        <div class="details-section-heading">
+            <div>
+                <span class="profile-eyebrow">TEAM STAFF</span>
+                <h2>Head Coach</h2>
+            </div>
+        </div>
+
+        <div class="coach-profile-card">
+            <div class="coach-profile-photo">
+                {% if team.coach_image %}
+                    <img src="{{ team.coach_image.url }}"
+                         alt="Photo of {{ team.coach_name }}">
+                {% else %}
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYZnMyonIwXS4djGAqZ4g9iKPHk2FjS0mJq7gBq5zVHw&s=10"
+                         alt="Default coach photo">
+                {% endif %}
+            </div>
+
+            <div class="coach-profile-info">
+                <h3>{{ team.coach_name }}</h3>
+                <span class="coach-role">HEAD COACH</span>
+
+                <div class="coach-contact-list">
+                    {% if team.coach_email %}
+                        <a href="mailto:{{ team.coach_email }}">
+                            <i class="bi bi-envelope-fill"></i>
+                            {{ team.coach_email }}
+                        </a>
+                    {% else %}
+                        <span>
+                            <i class="bi bi-envelope-fill"></i>
+                            Email not provided
+                        </span>
+                    {% endif %}
+
+                    {% if team.coach_phone_number %}
+                        <a href="tel:{{ team.coach_phone_number }}">
+                            <i class="bi bi-telephone-fill"></i>
+                            {{ team.coach_phone_number }}
+                        </a>
+                    {% else %}
+                        <span>
+                            <i class="bi bi-telephone-fill"></i>
+                            Phone not provided
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming games -->
+{#    <section class="details-section">#}
+{#        <div class="details-section-heading">#}
+{#            <div>#}
+{#                <span class="profile-eyebrow">WHAT'S NEXT</span>#}
+{#                <h2>Upcoming Games</h2>#}
+{#            </div>#}
+{#            <span class="game-count">{{ upcoming_games|length|default:"-" }} games</span>#}
+{#        </div>#}
+{##}
+{#        <div class="team-games-list">#}
+{#            {% for game in upcoming_games %}#}
+{#                <article class="team-game-card">#}
+{#                    <div class="game-date">#}
+{#                        <i class="bi bi-calendar-event"></i>#}
+{#                        <span>{{ game.date_and_time|date:"D, j M Y" }}</span>#}
+{#                        <span>{{ game.date_and_time|date:"H:i" }}</span>#}
+{#                    </div>#}
+{##}
+{#                    <div class="game-matchup">#}
+{#                        <span>#}
+{#                            {% if game.host_team_id == team.id %}#}
+{#                                {{ team.name }}#}
+{#                            {% else %}#}
+{#                                {{ game.host_team.name }}#}
+{#                            {% endif %}#}
+{#                        </span>#}
+{##}
+{#                        <strong>VS</strong>#}
+{##}
+{#                        <span>#}
+{#                            {% if game.guest_team_id == team.id %}#}
+{#                                {{ team.name }}#}
+{#                            {% else %}#}
+{#                                {{ game.guest_team.name }}#}
+{#                            {% endif %}#}
+{#                        </span>#}
+{#                    </div>#}
+{##}
+{#                    <div class="game-location">#}
+{#                        <i class="bi bi-geo-alt"></i>#}
+{#                        {{ game.location }}#}
+{#                    </div>#}
+{#                </article>#}
+{#            {% empty %}#}
+{#                <div class="details-empty">#}
+{#                    <i class="bi bi-calendar2-check"></i>#}
+{#                    <p>No upcoming games scheduled.</p>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#    </section>#}
+{##}
+{#    <!-- Finished games -->#}
+{#    <section class="details-section">#}
+{#        <div class="details-section-heading">#}
+{#            <div>#}
+{#                <span class="profile-eyebrow">PAST RESULTS</span>#}
+{#                <h2>Finished Games</h2>#}
+{#            </div>#}
+{#            <span class="game-count">{{ finished_games|length }} games</span>#}
+{#        </div>#}
+{##}
+{#        <div class="team-games-list">#}
+{#            {% for game in finished_games %}#}
+{#                <article class="team-game-card finished-game-card">#}
+{#                    <div class="game-date">#}
+{#                        <i class="bi bi-calendar-check"></i>#}
+{#                        <span>{{ game.date_and_time|date:"D, j M Y" }}</span>#}
+{#                    </div>#}
+{##}
+{#                    <div class="game-matchup">#}
+{#                        <span>{{ game.host_team.name }}</span>#}
+{##}
+{#                        <strong class="game-score">#}
+{#                            {{ game.goals_host }} - {{ game.goals_guest }}#}
+{#                        </strong>#}
+{##}
+{#                        <span>{{ game.guest_team.name }}</span>#}
+{#                    </div>#}
+{##}
+{#                    <div class="game-location">#}
+{#                        <i class="bi bi-geo-alt"></i>#}
+{#                        {{ game.location }}#}
+{#                    </div>#}
+{#                </article>#}
+{#            {% empty %}#}
+{#                <div class="details-empty">#}
+{#                    <i class="bi bi-clock-history"></i>#}
+{#                    <p>No finished games yet.</p>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#    </section>#}
+{##}
+    <!-- Team roster -->
+    <section class="details-section">
+        <div class="details-section-heading">
+            <div>
+                <span class="profile-eyebrow">MEET THE SQUAD</span>
+                <h2>Players</h2>
+            </div>
+
+            <a href="{% url 'players:add' team_slug=team.slug %}"
+               class="btn btn-accent">
+                <i class="bi bi-plus-lg me-2"></i>
+                Add Player
+            </a>
+        </div>
+
+        <div class="team-roster-list">
+            {% for player in team.players.all %}
+                <a href="{% url 'players:details' team_slug=team.slug pk=player.pk %}"
+                   class="roster-player">
+                    <div class="roster-player-photo">
+                        {% if player.image %}
+                            <img src="{{ player.image.url }}"
+                                 alt="{{ player.first_name }} {{ player.last_name }}">
+                        {% else %}
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYZnMyonIwXS4djGAqZ4g9iKPHk2FjS0mJq7gBq5zVHw&s=10"
+                                 alt="Default player photo">
+                        {% endif %}
+                    </div>
+
+                    <div class="roster-player-info">
+                        <strong>{{ player.first_name }} {{ player.last_name }}</strong>
+                        <span>{{ player.get_main_position_display }}</span>
+                    </div>
+
+                    <span class="roster-shirt-number">
+                        #{{ player.shirt_number }}
+                    </span>
+
+                    <i class="bi bi-chevron-right roster-chevron"></i>
+                </a>
+            {% empty %}
+                <div class="details-empty">
+                    <i class="bi bi-people"></i>
+                    <p>No players have been added to this team yet.</p>
+                    <a href="{% url 'players:add' team_slug=team.slug %}"
+                       class="btn btn-accent">
+                        Add First Player
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+</section>
+{% endblock %}

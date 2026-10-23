@@ -1,0 +1,51 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+
+<section class="form-page-section">
+    <div class="container">
+
+        <div class="form-intro text-center">
+            <h1 class="section-title">Update <span>{{ team.name }}</span></h1>
+        </div>
+
+        <div class="form-card mx-auto">
+
+            <form method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                {% for field in form %}
+                    <label class="form-label" for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                        {% if field.name == 'name' or field.name == 'city' or field.name == 'coach_name' %}
+                            <span class="required-star">*</span>
+                        {% endif %}
+                    </label>
+                    {{ field }}
+                    {% for error in field.errors %}
+                        <div class="invalid-feedback d-block">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                <div class="d-flex flex-column flex-sm-row gap-3">
+                    <button type="submit" class="btn btn-accent btn-lg flex-grow-1">
+                        Update Team Details<i class="bi bi-arrow-right ms-2"></i>
+                    </button>
+
+                    <a href="{% url 'teams:list' %}" class="btn btn-light btn-lg px-4">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
