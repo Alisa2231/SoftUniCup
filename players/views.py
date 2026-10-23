@@ -37,9 +37,15 @@ def player_edit_view(request, team_slug, pk):
     context = {'form': form, 'team': team, 'player': player, 'page_title': f'Edit Player of {team.name}'}
     return render(request, 'players/update_player.html', context)
 
-class PlayerDeleteView(DeleteView):
-    model = Player
-    template_name = 'players/delete_player.html'
+def player_delete_view(request, team_slug, pk):
+    team = get_object_or_404(Team, slug=team_slug)
+    player = get_object_or_404(Player, team=team, pk=pk)
+    if request.method == 'POST':
+        player.delete()
+        return redirect('teams:details', slug=team_slug)
+
+    context = {'team': team, 'player': player, 'page_title': f'Delete Player of {team.name}'}
+    return render(request, 'players/delete_player.html', context)
 
 class PlayerDetailsView(DetailView):
     model = Player
