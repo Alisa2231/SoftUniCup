@@ -32,6 +32,7 @@ class TeamDetailsView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = f"{self.object.name} | SoftUni Cup"
+        context['players'] = self.object.players.order_by('shirt_number')
         return context
 
 class TeamUpdateView(UpdateView):
@@ -51,4 +52,5 @@ class TeamDeleteView(DeleteView):
     template_name = 'teams/delete_team.html'
     extra_context = {'page_title': 'Delete Team | SoftUni Cup'}
     model = Team
+    context_object_name = 'team'
     success_url = reverse_lazy('teams:list')

@@ -1,6 +1,10 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
-from django.utils.text import slugify
+
+from players.validators import min_age, max_age
+
+
+# from django.utils.text import slugify
 
 
 class Player(models.Model):
@@ -26,13 +30,13 @@ class Player(models.Model):
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    nationality = models.CharField(max_length=100, null=True, blank=True)
-    birth_date = models.DateField()
+    nationality = models.CharField(max_length=100)
+    birth_year = models.PositiveIntegerField(validators=[min_age, max_age])
     shirt_number = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(99)])
     main_position = models.CharField(max_length=3, choices = Positions)
     secondary_position = models.CharField(max_length=3, choices = Positions, null=True, blank=True)
-    preferred_foot = models.CharField(max_length=1, choices = PreferredFoot)
-    height = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(0)], null=True, blank=True)
+    preferred_foot = models.CharField(max_length=1, choices = PreferredFoot, null=True, blank=True)
+    height = models.PositiveIntegerField(validators=[MinValueValidator(0)], null=True, blank=True)
     # weight = models.PositiveIntegerField(null=True, blank=True)
     image = models.ImageField(upload_to='players/', null=True, blank=True)
     # slug = models.SlugField(unique=True, editable=False)
@@ -42,7 +46,9 @@ class Player(models.Model):
         constraints = [
             models.UniqueConstraint(
                 fields=['shirt_number', 'team'],
-                name='unique_shirt_number_in_team'
+                name='unique_shirt_number_in_team',
+                violation_error_message=(
+                    'This shirt number is already taken by another player on this team.'),
             )
         ]
 

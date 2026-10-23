@@ -35,15 +35,15 @@
         </div>
 
         <div class="team-profile-actions">
-            <a href="{% url 'teams:add' %}"
+            <a href="{% url 'players:add' team_slug=team.slug%}"
                class="btn btn-accent">
-                <i class="bi bi-pencil-square me-2"></i>
+                <i class="bi bi-person-plus me-2"></i>
                 Add Players
             </a>
 
             <a href="{% url 'teams:update' slug=team.slug%}"
                class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-2"></i>
+                <i class="bi bi-pencil-square me-2"></i>
                 Edit Team Details
             </a>
 
@@ -246,7 +246,7 @@
         </div>
 
         <div class="team-roster-list">
-            {% for player in team.players.all %}
+            {% for player in players %}
                 <a href="{% url 'players:details' team_slug=team.slug pk=player.pk %}"
                    class="roster-player">
                     <div class="roster-player-photo">

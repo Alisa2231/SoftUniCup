@@ -18,19 +18,19 @@
 
         <div class="team-preview">
             <div class="team-preview-logo">
-                {% if object.logo %}
-                    <img src="{{ object.logo.url }}"
-                         alt="{{ object.name }} logo">
+                {% if team.logo %}
+                    <img src="{{ team.logo.url }}"
+                         alt="{{ team.name }} logo">
                 {% else %}
                     <i class="bi bi-shield-fill"></i>
                 {% endif %}
             </div>
 
             <div class="team-preview-info">
-                <h2>{{ object.name }}</h2>
+                <h2>{{ team.name }}</h2>
                 <p>
                     <i class="bi bi-geo-alt"></i>
-                    {{ object.city }}
+                    {{ team.city }}
                 </p>
             </div>
         </div>
@@ -47,7 +47,7 @@
         <form method="post" class="delete-team-form">
             {% csrf_token %}
 
-            <a href="{% url 'teams:details' slug=object.slug %}"
+            <a href="{% url 'teams:details' slug=team.slug %}"
                class="btn-cancel">
                 <i class="bi bi-arrow-left"></i>
                 Cancel

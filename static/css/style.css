@@ -1712,3 +1712,509 @@ textarea.form-control {
         width: 100%;
     }
 }
+
+
+
+
+
+
+/* ===================================
+   ADD PLAYER PAGE
+=================================== */
+
+.player-form-page {
+    padding: 55px 20px 75px;
+}
+
+.player-form-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Page heading */
+
+.player-form-heading {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.player-heading-icon {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: rgba(181, 232, 83, 0.12);
+    border: 1px solid rgba(181, 232, 83, 0.25);
+    color: #b5e853;
+    font-size: 2rem;
+}
+
+.player-eyebrow {
+    margin-bottom: 8px;
+    color: #b5e853;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.player-form-heading h1 {
+    margin-bottom: 10px;
+    /*color: #ffffff;*/
+    font-size: clamp(2rem, 5vw, 2.7rem);
+    font-weight: 800;
+}
+
+.player-heading-subtitle {
+    color: #b7c2d0;
+    font-size: 1rem;
+}
+
+.player-heading-subtitle strong {
+    color: #b5e853;
+}
+
+/* Team badge */
+
+.player-team-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 9px 16px;
+    color: #e2e9f2;
+    background: #19263a;
+    border: 1px solid #2d3c52;
+    border-radius: 30px;
+    font-size: 0.85rem;
+}
+
+.player-team-badge img {
+    width: 27px;
+    height: 27px;
+    object-fit: contain;
+}
+
+.player-team-badge > i {
+    color: #b5e853;
+    font-size: 1.3rem;
+}
+
+.team-badge-divider {
+    color: #64748b;
+}
+
+/* Form card */
+
+.player-form-card {
+    overflow: hidden;
+    background: #111c2e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.25);
+}
+
+.player-form-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px 32px;
+    background: #17243a;
+    border-bottom: 1px solid #2b394d;
+}
+
+.player-form-card-header h2 {
+    margin: 0 0 5px;
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 750;
+}
+
+.player-form-card-header p {
+    margin: 0;
+    color: #9eacbf;
+    font-size: 0.9rem;
+}
+
+.player-form-card-header > i {
+    color: #b5e853;
+    font-size: 1.8rem;
+}
+
+.player-form-card-body {
+    padding: 30px 32px 32px;
+}
+
+/* Required fields */
+
+.required-note {
+    margin-bottom: 28px;
+    color: #aebacc;
+    font-size: 0.85rem;
+}
+
+.required-star {
+    color: #ff5c65;
+    font-weight: 800;
+    margin-left: 3px;
+}
+
+/* Form sections */
+
+.player-form-section {
+    margin-bottom: 32px;
+}
+
+.player-form-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+    padding-bottom: 12px;
+    color: #eaf0f7;
+    border-bottom: 1px solid #2b394d;
+    font-size: 1.05rem;
+    font-weight: 750;
+}
+
+.player-form-section h3 i {
+    color: #b5e853;
+    font-size: 1.2rem;
+}
+
+.player-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 24px;
+}
+
+.player-field {
+    min-width: 0;
+}
+
+.player-field .form-label {
+    display: block;
+    margin-bottom: 9px;
+    color: #dce5f0;
+    font-size: 0.9rem;
+    font-weight: 650;
+}
+
+/* Inputs and dropdowns */
+
+.player-field .form-control,
+.player-field .form-select {
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 13px;
+    color: #f0f4fa;
+    background-color: #19263a;
+    border: 1px solid #394a61;
+    border-radius: 9px;
+    font-size: 0.92rem;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.player-field .form-control::placeholder {
+    color: #8190a5;
+}
+
+.player-field .form-control:focus,
+.player-field .form-select:focus {
+    color: #ffffff;
+    background-color: #19263a;
+    border-color: #b5e853;
+    box-shadow: 0 0 0 3px rgba(181, 232, 83, 0.12);
+}
+
+.player-field .form-select option {
+    color: #f0f4fa;
+    background: #19263a;
+}
+
+.player-field input[type="file"] {
+    padding: 8px;
+}
+
+.player-field input[type="file"]::file-selector-button {
+    margin-right: 12px;
+    padding: 7px 12px;
+    color: #152033;
+    background: #b5e853;
+    border: 0;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.player-field input[type="file"]::file-selector-button:hover {
+    background: #c7f475;
+}
+
+.field-help {
+    display: block;
+    margin-top: 7px;
+    color: #8f9eb2;
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+/* Validation errors */
+
+.player-field .invalid-feedback {
+    margin-top: 7px;
+    color: #ff737b;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.form-error-summary {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px 17px;
+    margin-bottom: 25px;
+    color: #ff858b;
+    background: rgba(255, 92, 101, 0.08);
+    border: 1px solid rgba(255, 92, 101, 0.25);
+    border-radius: 10px;
+}
+
+.form-error-summary > i {
+    margin-top: 3px;
+}
+
+.form-error-summary p {
+    margin: 0 0 5px;
+    color: #ffc1c4;
+    font-size: 0.88rem;
+}
+
+.form-error-summary p:last-child {
+    margin-bottom: 0;
+}
+
+/* Action buttons */
+
+.player-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px;
+    padding-top: 25px;
+    margin-top: 8px;
+    border-top: 1px solid #2b394d;
+}
+
+.player-btn-cancel,
+.player-btn-submit {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 21px;
+    border-radius: 9px;
+    font-size: 0.92rem;
+    font-weight: 750;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease,
+                background-color 0.2s ease,
+                border-color 0.2s ease;
+}
+
+.player-btn-cancel {
+    color: #dce5f0;
+    background: transparent;
+    border: 1px solid #40516a;
+}
+
+.player-btn-cancel:hover {
+    color: #ffffff;
+    background: #23334a;
+    border-color: #64758d;
+}
+
+.player-btn-submit {
+    color: #172033;
+    background: #b5e853;
+    border: 1px solid #b5e853;
+}
+
+.player-btn-submit:hover {
+    color: #172033;
+    background: #c7f475;
+    border-color: #c7f475;
+    transform: translateY(-1px);
+}
+
+/* Responsive layout */
+
+@media (max-width: 640px) {
+    .player-form-page {
+        padding: 35px 12px 50px;
+    }
+
+    .player-form-card-header {
+        padding: 20px;
+    }
+
+    .player-form-card-body {
+        padding: 23px 20px;
+    }
+
+    .player-form-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .player-form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .player-btn-cancel,
+    .player-btn-submit {
+        width: 100%;
+    }
+
+    .player-team-badge {
+        max-width: 100%;
+        gap: 7px;
+        font-size: 0.8rem;
+    }
+}
+
+
+
+
+
+
+
+/* ===================================
+   ADD PLAYER — LIGHT THEME
+=================================== */
+
+.player-form-card {
+    background: #ffffff;
+    border: 1px solid #e3e8ef;
+    box-shadow: 0 16px 40px rgba(24, 39, 60, 0.08);
+}
+
+.player-form-card-header {
+    background: #f7f9fc;
+    border-bottom: 1px solid #e5eaf0;
+}
+
+.player-form-card-header h2 {
+    color: #17243a;
+}
+
+.player-form-card-header p {
+    color: #68768a;
+}
+
+.player-form-card-header > i {
+    color: #608c20;
+}
+
+.player-form-card-body {
+    color: #263449;
+}
+
+.required-note {
+    color: #68768a;
+}
+
+/* Sections */
+
+.player-form-section h3 {
+    color: #17243a;
+    border-bottom-color: #e5eaf0;
+}
+
+.player-form-section h3 i {
+    color: #608c20;
+}
+
+/* Labels and fields */
+
+.player-field .form-label {
+    color: #263449;
+}
+
+.player-field .form-control,
+.player-field .form-select {
+    color: #263449;
+    background-color: #ffffff;
+    border-color: #cfd8e3;
+}
+
+.player-field .form-control::placeholder {
+    color: #98a3b2;
+}
+
+.player-field .form-control:focus,
+.player-field .form-select:focus {
+    color: #17243a;
+    background-color: #ffffff;
+    border-color: #84b83d;
+    box-shadow: 0 0 0 3px rgba(132, 184, 61, 0.15);
+}
+
+.player-field .form-select option {
+    color: #263449;
+    background: #ffffff;
+}
+
+.player-field input[type="file"]::file-selector-button {
+    color: #263449;
+    background: #edf5df;
+}
+
+.player-field input[type="file"]::file-selector-button:hover {
+    background: #e0efc8;
+}
+
+.field-help {
+    color: #758297;
+}
+
+/* Validation summary */
+
+.form-error-summary {
+    background: #fff1f1;
+    border-color: #f3caca;
+}
+
+.form-error-summary p {
+    color: #b4232c;
+}
+
+/* Bottom action divider */
+
+.player-form-actions {
+    border-top-color: #e5eaf0;
+}
+
+/* Team identity badge */
+
+.player-team-badge {
+    color: #263449;
+    background: #ffffff;
+    border-color: #e0e6ed;
+}
+
+.player-team-badge > i {
+    color: #608c20;
+}
+
+.team-badge-divider {
+    color: #b1bac6;
+}
