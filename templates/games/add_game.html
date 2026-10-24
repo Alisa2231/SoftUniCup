@@ -1,10 +1,234 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'common/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+<main class="game-form-page">
+    <div class="game-form-container">
+
+        <!-- Breadcrumb -->
+        <nav class="game-form-breadcrumb" aria-label="Breadcrumb">
+            <a href="{% url 'games:list' %}">
+                <i class="bi bi-calendar3"></i>
+                Matches &amp; Results
+            </a>
+            <i class="bi bi-chevron-right"></i>
+            <span>Add Game</span>
+        </nav>
+
+        <!-- Page Heading -->
+        <div class="game-form-heading">
+            <div class="game-form-heading-icon">
+                <i class="bi bi-calendar-plus"></i>
+            </div>
+
+            <div>
+                <p class="game-form-eyebrow">SOFTUNI CUP</p>
+                <h1>Schedule a Game</h1>
+                <p>Create a new fixture for the tournament.</p>
+            </div>
+        </div>
+
+        <!-- Form Card -->
+        <div class="game-form-card">
+            <div class="game-form-card-header">
+                <div>
+                    <h2>New Match</h2>
+                    <p>
+                        Enter the participating teams and match details.
+                    </p>
+                </div>
+
+                <span class="game-form-status">
+                    <span class="game-form-status-dot"></span>
+                    Upcoming
+                </span>
+            </div>
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+
+                <div class="game-form-card-body">
+
+                    {% if form.non_field_errors %}
+                        <div class="game-form-error-summary" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <div>
+                                {% for error in form.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Matchup Section -->
+                    <section class="game-form-section">
+                        <div class="game-form-section-heading">
+                            <div class="game-form-section-icon">
+                                <i class="bi bi-shield-fill"></i>
+                            </div>
+                            <div>
+                                <h3>Matchup</h3>
+                                <p>Choose the teams playing this fixture.</p>
+                            </div>
+                        </div>
+
+                        <div class="game-form-grid">
+                            <div class="game-form-field">
+                                <label for="{{ form.host_team.id_for_label }}"
+                                       class="form-label">
+                                    {{ form.host_team.label }}
+                                    <span class="game-required">*</span>
+                                </label>
+
+                                {{ form.host_team }}
+
+                                {% for error in form.host_team.errors %}
+                                    <div class="game-field-error">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                                <span class="game-field-help">
+                                    The team playing at home.
+                                </span>
+                            </div>
+
+                            <div class="game-form-field">
+                                <label for="{{ form.guest_team.id_for_label }}"
+                                       class="form-label">
+                                    {{ form.guest_team.label }}
+                                    <span class="game-required">*</span>
+                                </label>
+
+                                {{ form.guest_team }}
+
+                                {% for error in form.guest_team.errors %}
+                                    <div class="game-field-error">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+
+                                <span class="game-field-help">
+                                    The team playing away.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="game-form-info-note">
+                            <i class="bi bi-info-circle-fill"></i>
+                            <p>
+                                Each pair of teams can play up to two matches,
+                                provided they switch home and away roles.
+                                Team assignments cannot be changed after
+                                the game is created.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Match Details Section -->
+                    <section class="game-form-section">
+                        <div class="game-form-section-heading">
+                            <div class="game-form-section-icon">
+                                <i class="bi bi-calendar-event"></i>
+                            </div>
+                            <div>
+                                <h3>Match Details</h3>
+                                <p>Set the venue, kickoff time and referee.</p>
+                            </div>
+                        </div>
+
+                        <div class="game-form-grid">
+                            <div class="game-form-field">
+                                <label for="{{ form.location.id_for_label }}"
+                                       class="form-label">
+                                    {{ form.location.label }}
+                                    <span class="game-required">*</span>
+                                </label>
+
+                                {{ form.location }}
+
+                                {% for error in form.location.errors %}
+                                    <div class="game-field-error">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="game-form-field">
+                                <label for="{{ form.date_and_time.id_for_label }}"
+                                       class="form-label">
+                                    {{ form.date_and_time.label }}
+                                    <span class="game-required">*</span>
+                                </label>
+
+                                {{ form.date_and_time }}
+
+                                {% for error in form.date_and_time.errors %}
+                                    <div class="game-field-error">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="game-form-field game-form-field-full">
+                                <label for="{{ form.referee.id_for_label }}"
+                                       class="form-label">
+                                    {{ form.referee.label }}
+                                    <span class="game-required">*</span>
+                                </label>
+
+                                {{ form.referee }}
+
+                                {% for error in form.referee.errors %}
+                                    <div class="game-field-error">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Scheduling Note -->
+                    <div class="game-form-schedule-note">
+                        <i class="bi bi-calendar-check"></i>
+                        <div>
+                            <strong>Ready to schedule?</strong>
+                            <p>
+                                This game will be created with Upcoming
+                                status. You can enter the final score
+                                once the match has been played.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Form Actions -->
+                <div class="game-form-actions">
+                    <a href="{% url 'games:list' %}"
+                       class="game-form-cancel">
+                        <i class="bi bi-x-lg"></i>
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="game-form-submit">
+                        <i class="bi bi-calendar-plus"></i>
+                        Schedule Game
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <p class="game-form-required-note">
+            <span class="game-required">*</span>
+            Required fields
+        </p>
+
+    </div>
+</main>
+{% endblock %}

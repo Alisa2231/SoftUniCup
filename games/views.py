@@ -25,7 +25,7 @@ def game_add_view(request):
     else:
         form = UpcomingGameAddForm()
 
-    context = {'form': form}
+    context = {'form': form, 'page_title': 'Add Game | SoftUni Cup'}
     return render(request, 'games/add_game.html', context)
 
 def game_update_view(request, slug):
@@ -38,7 +38,7 @@ def game_update_view(request, slug):
     else:
         form = UpcomingGameUpdateForm(instance=game)
 
-    context = {'form': form, 'game': game, 'page_title': 'Game Update | SoftUni Cup'}
+    context = {'form': form, 'game': game, 'page_title': 'Update Game | SoftUni Cup'}
     return render(request, 'games/update_game.html', context)
 
 def game_finish_view(request, slug):
