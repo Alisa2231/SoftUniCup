@@ -1,10 +1,270 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'common/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+<main class="game-details-page">
+    <div class="game-details-container">
+
+        <!-- Breadcrumb -->
+        <nav class="game-details-breadcrumb" aria-label="Breadcrumb">
+            <a href="{% url 'games:list' %}">
+                <i class="bi bi-calendar3"></i>
+                Matches &amp; Results
+            </a>
+            <i class="bi bi-chevron-right"></i>
+            <span>Match Details</span>
+        </nav>
+
+        <!-- Page Heading -->
+        <div class="game-details-heading">
+            <div>
+                <p class="game-details-eyebrow">
+                    <i class="bi bi-trophy-fill"></i>
+                    SOFTUNI CUP
+                </p>
+                <h1>Match Details</h1>
+                <p>
+                    {{ game.host_team.name }} vs {{ game.guest_team.name }}
+                </p>
+            </div>
+
+            {% if game.status == 'UP' %}
+                <span class="game-details-status status-upcoming">
+                    <span class="status-dot"></span>
+                    Upcoming
+                </span>
+            {% else %}
+                <span class="game-details-status status-finished">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Full Time
+                </span>
+            {% endif %}
+        </div>
+
+        <!-- Match Scoreboard -->
+        <section class="match-scoreboard">
+            <div class="scoreboard-top">
+                <i class="bi bi-trophy"></i>
+                SOFTUNI CUP MATCH
+            </div>
+
+            <div class="scoreboard-main">
+
+                <!-- Host Team -->
+                <div class="scoreboard-team">
+                    <div class="scoreboard-team-logo">
+                        {% if game.host_team.logo %}
+                            <img src="{{ game.host_team.logo.url }}"
+                                 alt="{{ game.host_team.name }} logo">
+                        {% else %}
+                            <i class="bi bi-shield-fill"></i>
+                        {% endif %}
+                    </div>
+
+                    <span class="scoreboard-team-role">HOME</span>
+
+                    <a href="{% url 'teams:details' slug=game.host_team.slug %}"
+                       class="scoreboard-team-name">
+                        {{ game.host_team.name }}
+                    </a>
+
+                    <span class="scoreboard-team-city">
+                        {{ game.host_team.city }}
+                    </span>
+                </div>
+
+                <!-- Score -->
+                <div class="scoreboard-center">
+                    {% if game.status == 'F' %}
+                        <span class="scoreboard-score-label">
+                            FULL TIME
+                        </span>
+
+                        <div class="scoreboard-score">
+                            <span class="{% if game.goals_host > game.goals_guest %}score-winner{% endif %}">
+                                {{ game.goals_host }}
+                            </span>
+                            <span class="scoreboard-colon">:</span>
+                            <span class="{% if game.goals_guest > game.goals_host %}score-winner{% endif %}">
+                                {{ game.goals_guest }}
+                            </span>
+                        </div>
+
+                        {% if game.goals_host == game.goals_guest %}
+                            <span class="scoreboard-result">DRAW</span>
+                        {% else %}
+                            <span class="scoreboard-result">
+                                FINAL RESULT
+                            </span>
+                        {% endif %}
+                    {% else %}
+                        <span class="scoreboard-score-label">
+                            KICKOFF
+                        </span>
+
+                        <div class="scoreboard-score scoreboard-pending">
+                            <span>-</span>
+                            <span class="scoreboard-colon">:</span>
+                            <span>-</span>
+                        </div>
+
+                        <span class="scoreboard-result">
+                            {{ game.date_and_time|date:"d M Y" }}
+                        </span>
+                    {% endif %}
+                </div>
+
+                <!-- Guest Team -->
+                <div class="scoreboard-team">
+                    <div class="scoreboard-team-logo">
+                        {% if game.guest_team.logo %}
+                            <img src="{{ game.guest_team.logo.url }}"
+                                 alt="{{ game.guest_team.name }} logo">
+                        {% else %}
+                            <i class="bi bi-shield-fill"></i>
+                        {% endif %}
+                    </div>
+
+                    <span class="scoreboard-team-role">AWAY</span>
+
+                    <a href="{% url 'teams:details' slug=game.guest_team.slug %}"
+                       class="scoreboard-team-name">
+                        {{ game.guest_team.name }}
+                    </a>
+
+                    <span class="scoreboard-team-city">
+                        {{ game.guest_team.city }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="scoreboard-bottom">
+                <span>
+                    <i class="bi bi-calendar3"></i>
+                    {{ game.date_and_time|date:"d M Y" }}
+                </span>
+                <span>
+                    <i class="bi bi-clock"></i>
+                    {{ game.date_and_time|date:"H:i" }}
+                </span>
+                <span>
+                    <i class="bi bi-geo-alt"></i>
+                    {{ game.location }}
+                </span>
+            </div>
+        </section>
+
+        <!-- Match Actions -->
+        <div class="game-details-actions">
+            {% if game.status == 'UP' %}
+                <a href="{% url 'games:update' slug=game.slug %}"
+                   class="game-action-btn action-edit">
+                    <i class="bi bi-pencil-square"></i>
+                    Update Game Details
+                </a>
+
+                <a href="{% url 'games:finish' slug=game.slug %}"
+                   class="game-action-btn action-finish">
+                    <i class="bi bi-flag-fill"></i>
+                    Game Finished
+                </a>
+            {% else %}
+                <a href="{% url 'games:correct' slug=game.slug %}"
+                   class="game-action-btn action-correct">
+                    <i class="bi bi-pencil-square"></i>
+                    Correct Result
+                </a>
+            {% endif %}
+
+            <a href="{% url 'games:delete' slug=game.slug %}"
+               class="game-action-btn action-delete">
+                <i class="bi bi-trash3"></i>
+                Delete Game
+            </a>
+
+            <a href="{% url 'games:list' %}"
+               class="game-action-btn action-back">
+                <i class="bi bi-arrow-left"></i>
+                All Games
+            </a>
+        </div>
+
+        <!-- Match Information -->
+        <section class="game-info-card">
+            <div class="game-info-heading">
+                <div class="game-info-heading-icon">
+                    <i class="bi bi-info-circle"></i>
+                </div>
+
+                <div>
+                    <h2>Match Information</h2>
+                    <p>Fixture details and match officials</p>
+                </div>
+            </div>
+
+            <div class="game-info-grid">
+                <div class="game-info-item">
+                    <span class="game-info-label">
+                        <i class="bi bi-calendar-event"></i>
+                        Match Date
+                    </span>
+                    <span class="game-info-value">
+                        {{ game.date_and_time|date:"l, d F Y" }}
+                    </span>
+                </div>
+
+                <div class="game-info-item">
+                    <span class="game-info-label">
+                        <i class="bi bi-clock"></i>
+                        Kickoff Time
+                    </span>
+                    <span class="game-info-value">
+                        {{ game.date_and_time|date:"H:i" }}
+                    </span>
+                </div>
+
+                <div class="game-info-item">
+                    <span class="game-info-label">
+                        <i class="bi bi-geo-alt"></i>
+                        Venue
+                    </span>
+                    <span class="game-info-value">
+                        {{ game.location }}
+                    </span>
+                </div>
+
+                <div class="game-info-item">
+                    <span class="game-info-label">
+                        <i class="bi bi-person-badge"></i>
+                        Referee
+                    </span>
+                    <span class="game-info-value">
+                        {{ game.referee }}
+                    </span>
+                </div>
+
+                <div class="game-info-item">
+                    <span class="game-info-label">
+                        <i class="bi bi-flag"></i>
+                        Match Status
+                    </span>
+                    <span class="game-info-value">
+                        {{ game.get_status_display }}
+                    </span>
+                </div>
+
+                <div class="game-info-item">
+                    <span class="game-info-label">
+                        <i class="bi bi-arrow-repeat"></i>
+                        Last Updated
+                    </span>
+                    <span class="game-info-value">
+                        {{ game.updated_at|date:"d M Y, H:i" }}
+                    </span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</main>
+{% endblock %}

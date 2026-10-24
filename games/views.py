@@ -79,6 +79,6 @@ def game_delete_view(request, slug):
     return render(request, 'games/delete_game.html', context)
 
 def game_details_view(request, slug):
-    game = get_object_or_404(Game, slug=slug)
+    game = get_object_or_404(Game.objects.select_related('host_team', 'guest_team'), slug=slug)
     context = {'game': game, 'page_title': 'Game Details | SoftUni Cup'}
     return render(request, 'games/game_details.html', context)
