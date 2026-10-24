@@ -1,0 +1,282 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="games-page">
+    <div class="games-container">
+
+        <!-- Page Header -->
+        <div class="games-page-header">
+            <div>
+                <p class="games-eyebrow">
+                    <i class="bi bi-trophy-fill"></i>
+                    SOFTUNI CUP
+                </p>
+                <h1>Matches &amp; Results</h1>
+                <p class="games-page-subtitle">
+                    Follow upcoming games and check the latest results.
+                </p>
+            </div>
+
+            <a href="{% url 'games:add' %}" class="games-add-btn">
+                <i class="bi bi-plus-lg"></i>
+                Add Game
+            </a>
+        </div>
+
+        <!-- Upcoming Games -->
+        <section class="games-section">
+            <div class="games-section-header">
+                <div class="games-section-title">
+                    <div class="games-section-icon upcoming-icon">
+                        <i class="bi bi-calendar-event"></i>
+                    </div>
+
+                    <div>
+                        <h2>Upcoming Games</h2>
+                        <p>Scheduled matches and kickoff times</p>
+                    </div>
+                </div>
+
+                <span class="games-count">
+                    {{ upcoming_games|length }} game{{ upcoming_games|length|pluralize }}
+                </span>
+            </div>
+
+            <div class="games-list">
+                {% for game in upcoming_games %}
+                    <article class="game-card">
+                        <div class="game-card-top">
+                            <span class="game-status game-status-upcoming">
+                                <span class="game-status-dot"></span>
+                                Upcoming
+                            </span>
+
+                            <span class="game-date">
+                                <i class="bi bi-calendar3"></i>
+                                {{ game.date_and_time|date:"d M Y" }}
+                                <span class="game-date-divider">·</span>
+                                <i class="bi bi-clock"></i>
+                                {{ game.date_and_time|date:"H:i" }}
+                            </span>
+                        </div>
+
+                        <div class="game-card-main">
+                            <!-- Host Team -->
+                            <div class="game-team game-team-host">
+                                <div class="game-team-logo">
+                                    {% if game.host_team.logo %}
+                                        <img src="{{ game.host_team.logo.url }}"
+                                             alt="{{ game.host_team.name }} logo">
+                                    {% else %}
+                                        <i class="bi bi-shield-fill"></i>
+                                    {% endif %}
+                                </div>
+
+                                <div class="game-team-info">
+                                    <span class="game-team-role">HOME</span>
+                                    <h3>{{ game.host_team.name }}</h3>
+                                    <span class="game-team-city">
+                                        {{ game.host_team.city }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Match Score -->
+                            <div class="game-score-block">
+                                <span class="game-score-label">KICKOFF</span>
+                                <div class="game-score game-score-upcoming">
+                                    <span>-</span>
+                                    <span class="game-score-separator">:</span>
+                                    <span>-</span>
+                                </div>
+                                <span class="game-score-caption">VS</span>
+                            </div>
+
+                            <!-- Guest Team -->
+                            <div class="game-team game-team-guest">
+                                <div class="game-team-info">
+                                    <span class="game-team-role">AWAY</span>
+                                    <h3>{{ game.guest_team.name }}</h3>
+                                    <span class="game-team-city">
+                                        {{ game.guest_team.city }}
+                                    </span>
+                                </div>
+
+                                <div class="game-team-logo">
+                                    {% if game.guest_team.logo %}
+                                        <img src="{{ game.guest_team.logo.url }}"
+                                             alt="{{ game.guest_team.name }} logo">
+                                    {% else %}
+                                        <i class="bi bi-shield-fill"></i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="game-card-bottom">
+                            <div class="game-location">
+                                <i class="bi bi-geo-alt"></i>
+                                {{ game.location }}
+                            </div>
+
+                            <a href="{% url 'games:details' slug=game.slug %}"
+                               class="game-details-link">
+                                Match Details
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                {% empty %}
+                    <div class="games-empty-state">
+                        <div class="games-empty-icon">
+                            <i class="bi bi-calendar-x"></i>
+                        </div>
+                        <h3>No upcoming games</h3>
+                        <p>
+                            There are no matches scheduled yet.
+                            Add a game to get the tournament started!
+                        </p>
+                        <a href="{% url 'games:add' %}" class="games-empty-btn">
+                            <i class="bi bi-plus-lg"></i>
+                            Schedule a Game
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Finished Games -->
+        <section class="games-section finished-section">
+            <div class="games-section-header">
+                <div class="games-section-title">
+                    <div class="games-section-icon finished-icon">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+
+                    <div>
+                        <h2>Finished Games</h2>
+                        <p>Final scores and completed matches</p>
+                    </div>
+                </div>
+
+                <span class="games-count">
+                    {{ finished_games|length }} game{{ finished_games|length|pluralize }}
+                </span>
+            </div>
+
+            <div class="games-list">
+                {% for game in finished_games %}
+                    <article class="game-card finished-game-card">
+                        <div class="game-card-top">
+                            <span class="game-status game-status-finished">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Full Time
+                            </span>
+
+                            <span class="game-date">
+                                <i class="bi bi-calendar3"></i>
+                                {{ game.date_and_time|date:"d M Y" }}
+                                <span class="game-date-divider">·</span>
+                                <i class="bi bi-clock"></i>
+                                {{ game.date_and_time|date:"H:i" }}
+                            </span>
+                        </div>
+
+                        <div class="game-card-main">
+                            <!-- Host Team -->
+                            <div class="game-team game-team-host">
+                                <div class="game-team-logo">
+                                    {% if game.host_team.logo %}
+                                        <img src="{{ game.host_team.logo.url }}"
+                                             alt="{{ game.host_team.name }} logo">
+                                    {% else %}
+                                        <i class="bi bi-shield-fill"></i>
+                                    {% endif %}
+                                </div>
+
+                                <div class="game-team-info">
+                                    <span class="game-team-role">HOME</span>
+                                    <h3 class="{% if game.goals_host > game.goals_guest %}game-winner{% endif %}">
+                                        {{ game.host_team.name }}
+                                    </h3>
+                                    <span class="game-team-city">
+                                        {{ game.host_team.city }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Final Score -->
+                            <div class="game-score-block">
+                                <span class="game-score-label">FULL TIME</span>
+                                <div class="game-score game-score-finished">
+                                    <span class="{% if game.goals_host > game.goals_guest %}winning-score{% endif %}">
+                                        {{ game.goals_host }}
+                                    </span>
+                                    <span class="game-score-separator">:</span>
+                                    <span class="{% if game.goals_guest > game.goals_host %}winning-score{% endif %}">
+                                        {{ game.goals_guest }}
+                                    </span>
+                                </div>
+
+                                {% if game.goals_host == game.goals_guest %}
+                                    <span class="game-score-caption">DRAW</span>
+                                {% else %}
+                                    <span class="game-score-caption">FINAL</span>
+                                {% endif %}
+                            </div>
+
+                            <!-- Guest Team -->
+                            <div class="game-team game-team-guest">
+                                <div class="game-team-info">
+                                    <span class="game-team-role">AWAY</span>
+                                    <h3 class="{% if game.goals_guest > game.goals_host %}game-winner{% endif %}">
+                                        {{ game.guest_team.name }}
+                                    </h3>
+                                    <span class="game-team-city">
+                                        {{ game.guest_team.city }}
+                                    </span>
+                                </div>
+
+                                <div class="game-team-logo">
+                                    {% if game.guest_team.logo %}
+                                        <img src="{{ game.guest_team.logo.url }}"
+                                             alt="{{ game.guest_team.name }} logo">
+                                    {% else %}
+                                        <i class="bi bi-shield-fill"></i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="game-card-bottom">
+                            <div class="game-location">
+                                <i class="bi bi-geo-alt"></i>
+                                {{ game.location }}
+                            </div>
+
+                            <a href="{% url 'games:details' slug=game.slug %}"
+                               class="game-details-link">
+                                Match Details
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </article>
+                {% empty %}
+                    <div class="games-empty-state">
+                        <div class="games-empty-icon">
+                            <i class="bi bi-trophy"></i>
+                        </div>
+                        <h3>No finished games yet</h3>
+                        <p>
+                            Once a match is completed, its final result
+                            will appear here.
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+    </div>
+</main>
+{% endblock %}
