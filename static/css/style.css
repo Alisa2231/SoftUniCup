@@ -846,8 +846,15 @@ textarea.form-control {
 
 
 /* Teams page */
-.teams-section {
-    padding: 2rem 0;
+.teams-page {
+    min-height: 75vh;
+    padding: 46px 20px 80px;
+    background: #f5f7fa;
+}
+
+.teams-container {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .teams-header {
@@ -1050,7 +1057,14 @@ textarea.form-control {
 
 /* Team details page */
 .team-details-page {
-    padding: 2rem 0 3rem;
+    min-height: 75vh;
+    padding: 46px 20px 80px;
+    background: #f5f7fa;
+}
+
+.team-details-container {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .team-profile-card {
@@ -1277,8 +1291,8 @@ textarea.form-control {
     box-shadow: 0 5px 16px rgba(20, 43, 74, 0.04);
 }
 
-.game-date,
-.game-location {
+.game-date-team-details,
+.game-location-team-details {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -1287,8 +1301,8 @@ textarea.form-control {
     font-size: 0.9rem;
 }
 
-.game-date i,
-.game-location i {
+.game-date-team-details i,
+.game-location-team-details i {
     color: var(--accent, #65a30d);
 }
 
@@ -1307,12 +1321,12 @@ textarea.form-control {
     overflow-wrap: anywhere;
 }
 
-.game-matchup > strong:not(.game-score) {
+.game-matchup > strong:not(.game-score-team-details) {
     color: #8b96a7;
     font-size: 0.75rem;
 }
 
-.game-score {
+.game-score-team-details {
     flex: 0 0 auto;
     padding: 0.45rem 0.75rem;
     border-radius: 0.6rem;
