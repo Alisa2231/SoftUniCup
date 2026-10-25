@@ -7,16 +7,9 @@ class UpcomingGameBaseForm(forms.ModelForm):
     class Meta:
         model = Game
         fields = ['host_team', 'guest_team', 'location', 'date_and_time', 'referee']
-        # labels = {
-        #     'host_team': 'Host Team',
-        #     'guest_team': 'Guest Team',
-        #     'location': 'Location',
-        #     'date_and_time': 'Date and Time',
-        #     'referee': 'Referee',
-        # }
         widgets = {
             'location': forms.TextInput(attrs={'placeholder': 'Enter match location'}),
-            'date_and_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'date_and_time': forms.DateTimeInput(format='%Y-%m-%dT%H:%M', attrs={'type': 'datetime-local'}),
             'referee': forms.TextInput(attrs={'placeholder': 'Referee full name'}),
         }
         error_messages = {
@@ -31,24 +24,22 @@ class UpcomingGameAddForm(UpcomingGameBaseForm):
     ...
 
 class UpcomingGameUpdateForm(UpcomingGameBaseForm):
-    ...
+    class Meta(UpcomingGameBaseForm.Meta):
+        fields = ['location', 'date_and_time', 'referee']
 
 class FinishedGameBaseForm(forms.ModelForm):
     class Meta:
         model = Game
         fields = ['goals_host', 'goals_guest']
-        # labels = {
-        #     'goals_host': 'Goals Host',
-        #     'goals_guest': 'Goals Guest',
-        # }
-        widgets = {
-            'goals_host': forms.NumberInput(attrs={'required': True}),
-            'goals_guest': forms.NumberInput(attrs={'required': True}),
-        }
         error_messages = {
             'goals_host': {'required': 'Please enter the number of goals the host team scored.'},
             'goals_guest': {'required': 'Please enter the number of goals the guest team scored.'}
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['goals_host'].required = True
+        self.fields['goals_guest'].required = True
 
 class FinishedGameForm(FinishedGameBaseForm):
     ...

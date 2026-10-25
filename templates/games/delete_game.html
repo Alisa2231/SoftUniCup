@@ -1,10 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'common/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+<main class="delete-game-page">
+    <div class="delete-game-container">
+
+        <!-- Back Link -->
+        <a href="{% url 'games:details' slug=game.slug %}"
+           class="delete-game-back">
+            <i class="bi bi-arrow-left"></i>
+            Back to Match Details
+        </a>
+
+        <!-- Confirmation Card -->
+        <div class="delete-game-card">
+
+            <!-- Warning Icon -->
+            <div class="delete-game-warning-icon">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+
+{#            <p class="delete-game-eyebrow">DANGER ZONE</p>#}
+
+            <h1>Delete Game?</h1>
+
+            <p class="delete-game-intro">
+                You are about to permanently remove this match
+                from SoftUni Cup.
+            </p>
+
+            <!-- Match Preview -->
+            <div class="delete-game-match">
+
+                <div class="delete-game-team">
+                    <div class="delete-game-team-logo">
+                        {% if game.host_team.logo %}
+                            <img src="{{ game.host_team.logo.url }}"
+                                 alt="{{ game.host_team.name }} logo">
+                        {% else %}
+                            <i class="bi bi-shield-fill"></i>
+                        {% endif %}
+                    </div>
+
+                    <span class="delete-game-team-role">HOME</span>
+                    <strong>{{ game.host_team.name }}</strong>
+                </div>
+
+                <div class="delete-game-match-center">
+                    {% if game.status == 'F' %}
+                        <div class="delete-game-score">
+                            <span>{{ game.goals_host }}</span>
+                            <span class="delete-game-score-separator">:</span>
+                            <span>{{ game.goals_guest }}</span>
+                        </div>
+                        <span class="delete-game-match-status">FINAL SCORE</span>
+                    {% else %}
+                        <span class="delete-game-vs">VS</span>
+                        <span class="delete-game-match-status">UPCOMING</span>
+                    {% endif %}
+                </div>
+
+                <div class="delete-game-team">
+                    <div class="delete-game-team-logo">
+                        {% if game.guest_team.logo %}
+                            <img src="{{ game.guest_team.logo.url }}"
+                                 alt="{{ game.guest_team.name }} logo">
+                        {% else %}
+                            <i class="bi bi-shield-fill"></i>
+                        {% endif %}
+                    </div>
+
+                    <span class="delete-game-team-role">AWAY</span>
+                    <strong>{{ game.guest_team.name }}</strong>
+                </div>
+
+            </div>
+
+            <!-- Match Details -->
+            <div class="delete-game-details">
+                <div>
+                    <i class="bi bi-calendar-event"></i>
+                    <span>{{ game.date_and_time|date:"d M Y, H:i" }}</span>
+                </div>
+
+                <div>
+                    <i class="bi bi-geo-alt"></i>
+                    <span>{{ game.location }}</span>
+                </div>
+
+                <div>
+                    <i class="bi bi-person-badge"></i>
+                    <span>{{ game.referee }}</span>
+                </div>
+            </div>
+
+            <!-- Warning -->
+            <div class="delete-game-warning">
+                <i class="bi bi-exclamation-circle-fill"></i>
+
+                <p>
+                    This action <strong>cannot be undone.</strong>
+                    {% if game.status == 'F' %}
+                        The recorded result will also be permanently deleted.
+                    {% else %}
+                        The scheduled fixture will be permanently deleted.
+                    {% endif %}
+                </p>
+            </div>
+
+            <!-- Actions -->
+            <form method="post" class="delete-game-form">
+                {% csrf_token %}
+
+                <a href="{% url 'games:details' slug=game.slug %}"
+                   class="delete-game-cancel">
+                    <i class="bi bi-arrow-left"></i>
+                    Cancel
+                </a>
+
+                <button type="submit" class="delete-game-confirm">
+                    <i class="bi bi-trash3"></i>
+                    Yes, Delete Game
+                </button>
+            </form>
+
+        </div>
+    </div>
+</main>
+{% endblock %}

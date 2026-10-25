@@ -1,3 +1,4 @@
+from django.db.models import Model
 from django.shortcuts import render, redirect, get_object_or_404
 
 from games.forms import UpcomingGameAddForm, UpcomingGameUpdateForm, FinishedGameForm, FinishedGameUpdateForm
@@ -29,10 +30,10 @@ def game_add_view(request):
     return render(request, 'games/add_game.html', context)
 
 def game_update_view(request, slug):
-    game = get_object_or_404(Game, slug=slug)
+    game = get_object_or_404(Game, slug=slug, status='UP')
     if request.method == 'POST':
         form = UpcomingGameUpdateForm(request.POST, instance=game)
-        if form.is_valid()and game.status == 'UP':
+        if form.is_valid():
             form.save()
             return redirect('games:details', slug=slug)
     else:
@@ -42,13 +43,12 @@ def game_update_view(request, slug):
     return render(request, 'games/update_game.html', context)
 
 def game_finish_view(request, slug):
-    game = get_object_or_404(Game, slug=slug)
+    game = get_object_or_404(Game, slug=slug, status='UP')
     if request.method == 'POST':
+        game.status = 'F'
         form = FinishedGameForm(request.POST, instance=game)
-        if form.is_valid() and game.status == 'UP':
-            game = form.save(commit=False)
-            game.status = 'F'
-            game.save()
+        if form.is_valid():
+            form.save()
             return redirect('games:details', slug=slug)
     else:
         form = FinishedGameForm(instance=game)
@@ -57,14 +57,14 @@ def game_finish_view(request, slug):
     return render(request, 'games/finish_game.html', context)
 
 def correct_result_view(request, slug):
-    game = get_object_or_404(Game, slug=slug)
+    game = get_object_or_404(Game, slug=slug, status='F')
     if request.method == 'POST':
         form = FinishedGameUpdateForm(request.POST, instance=game)
-        if form.is_valid() and game.status == 'F':
+        if form.is_valid():
             form.save()
             return redirect('games:details', slug=slug)
     else:
-        form = FinishedGameForm(instance=game)
+        form = FinishedGameUpdateForm(instance=game)
 
     context = {'form': form, 'game': game, 'page_title': 'Update Finished Game | SoftUni Cup'}
     return render(request, 'games/correct_result.html', context)

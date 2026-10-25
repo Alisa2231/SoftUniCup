@@ -1,10 +1,251 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'common/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+<main class="game-form-page">
+    <div class="game-form-container">
+
+        <!-- Breadcrumb -->
+        <nav class="game-form-breadcrumb" aria-label="Breadcrumb">
+            <a href="{% url 'games:list' %}">
+                <i class="bi bi-calendar3"></i>
+                Matches &amp; Results
+            </a>
+            <i class="bi bi-chevron-right"></i>
+
+            <a href="{% url 'games:details' slug=game.slug %}">
+                Match Details
+            </a>
+            <i class="bi bi-chevron-right"></i>
+
+            <span>Update Game</span>
+        </nav>
+
+        <!-- Page Heading -->
+        <div class="game-form-heading">
+            <div class="game-form-heading-icon">
+                <i class="bi bi-pencil-square"></i>
+            </div>
+
+            <div>
+                <p class="game-form-eyebrow">SOFTUNI CUP</p>
+                <h1>Update Game Details</h1>
+                <p>Make changes to an upcoming fixture.</p>
+            </div>
+        </div>
+
+        <!-- Form Card -->
+        <div class="game-form-card">
+
+            <div class="game-form-card-header">
+                <div>
+                    <h2>Edit Match Details</h2>
+                    <p>
+                        Update the schedule, venue or referee.
+                    </p>
+                </div>
+
+                <span class="game-form-status">
+                    <span class="game-form-status-dot"></span>
+                    Upcoming
+                </span>
+            </div>
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+
+                <div class="game-form-card-body">
+
+                    {% if form.non_field_errors %}
+                        <div class="game-form-error-summary" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <div>
+                                {% for error in form.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Participating Teams -->
+                    <section class="game-form-section">
+                        <div class="game-form-section-heading">
+                            <div class="game-form-section-icon">
+                                <i class="bi bi-shield-fill"></i>
+                            </div>
+
+                            <div>
+                                <h3>Participating Teams</h3>
+                                <p>
+                                    The teams are fixed once a game is scheduled.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="update-game-matchup">
+
+                            <!-- Host Team -->
+                            <div class="update-game-team">
+                                <div class="update-game-team-logo">
+                                    {% if game.host_team.logo %}
+                                        <img src="{{ game.host_team.logo.url }}"
+                                             alt="{{ game.host_team.name }} logo">
+                                    {% else %}
+                                        <i class="bi bi-shield-fill"></i>
+                                    {% endif %}
+                                </div>
+
+                                <span class="update-game-team-role">HOME</span>
+                                <h4>{{ game.host_team.name }}</h4>
+                                <span class="update-game-team-city">
+                                    {{ game.host_team.city }}
+                                </span>
+                            </div>
+
+                            <!-- VS -->
+                            <div class="update-game-versus">
+                                <span>VS</span>
+                            </div>
+
+                            <!-- Guest Team -->
+                            <div class="update-game-team">
+                                <div class="update-game-team-logo">
+                                    {% if game.guest_team.logo %}
+                                        <img src="{{ game.guest_team.logo.url }}"
+                                             alt="{{ game.guest_team.name }} logo">
+                                    {% else %}
+                                        <i class="bi bi-shield-fill"></i>
+                                    {% endif %}
+                                </div>
+
+                                <span class="update-game-team-role">AWAY</span>
+                                <h4>{{ game.guest_team.name }}</h4>
+                                <span class="update-game-team-city">
+                                    {{ game.guest_team.city }}
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="update-game-locked-note">
+                            <i class="bi bi-lock-fill"></i>
+                            Home and away teams cannot be changed
+                            after scheduling.
+                        </div>
+                    </section>
+
+                    <!-- Editable Match Details -->
+                    <section class="game-form-section">
+                        <div class="game-form-section-heading">
+                            <div class="game-form-section-icon">
+                                <i class="bi bi-calendar-event"></i>
+                            </div>
+
+                            <div>
+                                <h3>Match Details</h3>
+                                <p>
+                                    Edit the information below and save your changes.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="game-form-grid">
+
+                            <!-- Location -->
+                            <div class="game-form-field">
+                                <label for="{{ form.location.id_for_label }}"
+                                       class="form-label">
+                                    {{ form.location.label }}
+                                    <span class="game-required">*</span>
+                                </label>
+
+                                {{ form.location }}
+
+                                {% for error in form.location.errors %}
+                                    <div class="game-field-error">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Date and Time -->
+                            <div class="game-form-field">
+                                <label for="{{ form.date_and_time.id_for_label }}"
+                                       class="form-label">
+                                    {{ form.date_and_time.label }}
+                                    <span class="game-required">*</span>
+                                </label>
+
+                                {{ form.date_and_time }}
+
+                                {% for error in form.date_and_time.errors %}
+                                    <div class="game-field-error">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Referee -->
+                            <div class="game-form-field game-form-field-full">
+                                <label for="{{ form.referee.id_for_label }}"
+                                       class="form-label">
+                                    {{ form.referee.label }}
+                                    <span class="game-required">*</span>
+                                </label>
+
+                                {{ form.referee }}
+
+                                {% for error in form.referee.errors %}
+                                    <div class="game-field-error">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- Information Note -->
+                    <div class="game-form-schedule-note">
+                        <i class="bi bi-info-circle"></i>
+
+                        <div>
+                            <strong>Updating an upcoming match</strong>
+                            <p>
+                                These changes will update the fixture
+                                information. The game will remain Upcoming,
+                                and no result will be recorded yet. To mark the match finished and add the result, go back to the match details page (click Cancel below) and press the Game Finished button.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Form Actions -->
+                <div class="game-form-actions">
+                    <a href="{% url 'games:details' slug=game.slug %}"
+                       class="game-form-cancel">
+                        <i class="bi bi-x-lg"></i>
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="game-form-submit">
+                        <i class="bi bi-check-lg"></i>
+                        Save Changes
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <p class="game-form-required-note">
+            <span class="game-required">*</span>
+            Required fields
+        </p>
+
+    </div>
+</main>
+{% endblock %}

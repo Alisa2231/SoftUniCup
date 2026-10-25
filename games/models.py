@@ -34,7 +34,7 @@ class Game(models.Model):
         ]
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(f'{self.host_team.slug}-{self.guest_team.slug}')
+        self.slug = slugify(f'{self.host_team.slug}-vs-{self.guest_team.slug}')
         super().save(*args, **kwargs)
 
     def clean(self):
@@ -44,11 +44,11 @@ class Game(models.Model):
 
         if self.status == self.GameStatus.FINISHED:
             if self.goals_host is None or self.goals_guest is None:
-                raise ValidationError("Both scores must be provided for a finished game. If a team didn't score a goal, just enter 0")
+                raise ValidationError("Both scores must be provided for a finished game. If a team didn't score a goal, just enter 0.")
         elif self.status == self.GameStatus.UPCOMING:
             if self.goals_host is not None or self.goals_guest is not None:
                 raise ValidationError("Upcoming games cannot have a recorded score.")
 
     def __str__(self):
-        return f'{self.host_team} - {self.guest_team}'
+        return f'{self.host_team} vs {self.guest_team}'
 
