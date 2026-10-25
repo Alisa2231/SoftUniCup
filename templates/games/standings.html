@@ -1,0 +1,167 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="standings-page">
+    <div class="standings-container">
+
+        <!-- Page Heading -->
+        <div class="standings-heading">
+            <div>
+                <p class="standings-eyebrow">
+                    <i class="bi bi-trophy-fill"></i>
+                    SOFTUNI CUP
+                </p>
+                <h1>Tournament Standings</h1>
+                <p class="standings-subtitle">
+                    Follow the competition and see how every team
+                    ranks based on completed matches.
+                </p>
+            </div>
+
+            <div class="standings-heading-icon">
+                <i class="bi bi-bar-chart-line-fill"></i>
+            </div>
+        </div>
+
+        <!-- Table Card -->
+        <section class="standings-card">
+
+            <div class="standings-card-header">
+                <div>
+                    <h2>Tournament Table</h2>
+                    <p>
+                        Rankings are updated automatically
+                        as match results are recorded.
+                    </p>
+                </div>
+
+                <span class="standings-team-count">
+                    <i class="bi bi-people-fill"></i>
+                    {{ results|length }} Team{{ results|length|pluralize }}
+                </span>
+            </div>
+
+            <div class="standings-table-scroll">
+                <table class="standings-table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="standings-position">POS</th>
+                            <th scope="col" class="standings-team-column">TEAM</th>
+                            <th scope="col" title="Played">P</th>
+                            <th scope="col" title="Won">W</th>
+                            <th scope="col" title="Drawn">D</th>
+                            <th scope="col" title="Lost">L</th>
+                            <th scope="col" title="Goals Scored">GS</th>
+                            <th scope="col" title="Goals Received">GR</th>
+                            <th scope="col" title="Goal Difference">GD</th>
+                            <th scope="col" class="standings-points-column"
+                                title="Points">PTS</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for stats in results %}
+                            <tr>
+                                <!-- Position -->
+                                <td class="standings-position">
+                                    <span class="standings-position-number
+                                        {% if forloop.counter == 1 %}standings-first{% endif %}">
+                                        {{ forloop.counter }}
+                                    </span>
+                                </td>
+
+                                <!-- Team -->
+                                <td class="standings-team-column">
+                                    <a href="{% url 'teams:details' slug=stats.team.slug %}"
+                                       class="standings-team-link">
+
+                                        <span class="standings-team-logo">
+                                            {% if stats.team.logo %}
+                                                <img src="{{ stats.team.logo.url }}"
+                                                     alt="{{ stats.team }} logo">
+                                            {% else %}
+                                                <i class="bi bi-shield-fill"></i>
+                                            {% endif %}
+                                        </span>
+
+                                        <span class="standings-team-name">
+                                            {{ stats.team }}
+                                        </span>
+                                    </a>
+                                </td>
+
+                                <!-- Match Statistics -->
+                                <td>{{ stats.games_played }}</td>
+                                <td>{{ stats.games_won }}</td>
+                                <td>{{ stats.games_drawn }}</td>
+                                <td>{{ stats.games_lost }}</td>
+                                <td>{{ stats.goals_scored }}</td>
+                                <td>{{ stats.goals_received }}</td>
+
+                                <!-- Goal Difference -->
+                                <td>
+                                    <span class="standings-goal-difference
+                                        {% if stats.goal_difference > 0 %}standings-positive
+                                        {% elif stats.goal_difference < 0 %}standings-negative
+                                        {% endif %}">
+                                        {% if stats.goal_difference > 0 %}+{% endif %}{{ stats.goal_difference }}
+                                    </span>
+                                </td>
+
+                                <!-- Points -->
+                                <td class="standings-points-column">
+                                    <span class="standings-points">
+                                        {{ stats.points }}
+                                    </span>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="10" class="standings-empty">
+                                    <i class="bi bi-shield-slash"></i>
+                                    <p>No teams have joined the competition yet.</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Legend -->
+            <div class="standings-legend">
+                <div class="standings-legend-items">
+                    <span><strong>P</strong> Played</span>
+                    <span><strong>W</strong> Won</span>
+                    <span><strong>D</strong> Drawn</span>
+                    <span><strong>L</strong> Lost</span>
+                    <span><strong>GS</strong> Goals Scored</span>
+                    <span><strong>GR</strong> Goals Received</span>
+                    <span><strong>GD</strong> Goal Difference</span>
+                    <span><strong>PTS</strong> Points</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ranking Rules -->
+        <div class="standings-info">
+            <div class="standings-info-icon">
+                <i class="bi bi-info-circle-fill"></i>
+            </div>
+
+            <div>
+                <h3>How are standings calculated?</h3>
+                <p>
+                    Teams earn <strong>3 points for a win</strong>,
+                    <strong>1 point for a draw</strong>, and
+                    <strong>0 points for a loss</strong>.
+                    Rankings are determined by total points,
+                    followed by goal difference.
+                    Only finished matches count toward the table.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

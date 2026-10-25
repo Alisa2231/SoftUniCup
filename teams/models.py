@@ -19,6 +19,15 @@ class Team(models.Model):
     # points = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    # games_played = models.PositiveIntegerField(default=0)
+    # games_won = models.PositiveIntegerField(default=0)
+    # games_drawn = models.PositiveIntegerField(default=0)
+    # games_lost = models.PositiveIntegerField(default=0)
+    # goals_scored = models.PositiveIntegerField(default=0)
+    # goals_received = models.PositiveIntegerField(default=0)
+    # goal_difference = models.IntegerField(default=0)
+    # points = models.PositiveIntegerField(default=0)
+
     class Meta:
         constraints = [
             models.UniqueConstraint(

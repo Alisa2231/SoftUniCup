@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block content %}
-<main class="delete-game-page">
+<section class="delete-game-page">
     <div class="delete-game-container">
 
         <!-- Back Link -->
-        <a href="{% url 'games:details' slug=game.slug %}"
-           class="delete-game-back">
-            <i class="bi bi-arrow-left"></i>
-            Back to Match Details
-        </a>
+{#        <a href="{% url 'games:details' slug=game.slug %}"#}
+{#           class="delete-game-back">#}
+{#            <i class="bi bi-arrow-left"></i>#}
+{#            Back to Match Details#}
+{#        </a>#}
 
         <!-- Confirmation Card -->
         <div class="delete-game-card">
@@ -126,5 +126,5 @@
 
         </div>
     </div>
-</main>
+</section>
 {% endblock %}

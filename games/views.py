@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from games.forms import UpcomingGameAddForm, UpcomingGameUpdateForm, FinishedGameForm, FinishedGameUpdateForm
 from games.models import Game
+from teams.models import Team
 
 
 def games_list_view(request):
@@ -82,3 +83,51 @@ def game_details_view(request, slug):
     game = get_object_or_404(Game.objects.select_related('host_team', 'guest_team'), slug=slug)
     context = {'game': game, 'page_title': 'Game Details | SoftUni Cup'}
     return render(request, 'games/game_details.html', context)
+
+def standings_view(request):
+    teams = Team.objects.all()
+    unsorted_results = {}
+    for team in teams:
+        unsorted_results[team.id] = {
+            'team': team,
+            "games_played": 0,
+            "games_won": 0,
+            "games_drawn": 0,
+            "games_lost": 0,
+            "goals_scored": 0,
+            "goals_received": 0,
+            'goal_difference': 0,
+            "points": 0,
+        }
+
+    finished_games = Game.objects.filter(status='F')
+
+    for game in finished_games:
+        host = unsorted_results[game.host_team.id]
+        guest = unsorted_results[game.guest_team.id]
+        host['games_played'] += 1
+        guest['games_played'] += 1
+        if game.goals_host > game.goals_guest:
+            host['games_won'] += 1
+            host['points'] += 3
+            guest['games_lost'] += 1
+        elif game.goals_host < game.goals_guest:
+            guest['games_won'] += 1
+            guest['points'] += 3
+            host['games_lost'] += 1
+        else:
+            host['games_drawn'] += 1
+            host['points'] += 1
+            guest['games_drawn'] += 1
+            guest['points'] += 1
+        host['goals_scored'] += game.goals_host
+        host['goals_received'] += game.goals_guest
+        guest['goals_scored'] += game.goals_guest
+        guest['goals_received'] += game.goals_host
+
+    for team_stats in unsorted_results.values():
+        team_stats['goal_difference'] = team_stats['goals_scored'] - team_stats['goals_received']
+
+    results = sorted(unsorted_results.values(), key=lambda x: (-x['points'], -x['goal_difference']))
+    context = {'page_title': 'Standings | SoftUni Cup', 'results': results}
+    return render(request, 'games/standings.html', context)
