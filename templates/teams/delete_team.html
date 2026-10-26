@@ -20,17 +20,17 @@
             <div class="team-preview-logo">
                 {% if team.logo %}
                     <img src="{{ team.logo.url }}"
-                         alt="{{ team.name }} logo">
+                         alt="{{ team }} logo">
                 {% else %}
                     <i class="bi bi-shield-fill"></i>
                 {% endif %}
             </div>
 
             <div class="team-preview-info">
-                <h2>{{ team.name }}</h2>
+                <h2>{{ team.name|capfirst }}</h2>
                 <p>
                     <i class="bi bi-geo-alt"></i>
-                    {{ team.city }}
+                    {{ team.city|capfirst }}
                 </p>
             </div>
         </div>

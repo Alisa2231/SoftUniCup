@@ -1,0 +1,205 @@
+<!-- Basic information -->
+<div class="player-form-section">
+    <h3>
+        <i class="bi bi-person-vcard"></i>
+        Basic Information
+    </h3>
+
+    <div class="player-form-grid">
+
+        <div class="player-field">
+            <label for="{{ form.first_name.id_for_label }}"
+                   class="form-label">
+                {{ form.first_name.label }}
+                <span class="required-star">*</span>
+            </label>
+
+            {{ form.first_name }}
+
+            {% for error in form.first_name.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="player-field">
+            <label for="{{ form.last_name.id_for_label }}"
+                   class="form-label">
+                {{ form.last_name.label }}
+                <span class="required-star">*</span>
+            </label>
+
+            {{ form.last_name }}
+
+            {% for error in form.last_name.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="player-field">
+            <label for="{{ form.nationality.id_for_label }}"
+                   class="form-label">
+                {{ form.nationality.label }}
+                <span class="required-star">*</span>
+            </label>
+
+            {{ form.nationality }}
+
+            {% for error in form.nationality.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="player-field">
+            <label for="{{ form.birth_year.id_for_label }}"
+                   class="form-label">
+                {{ form.birth_year.label }}
+                <span class="required-star">*</span>
+            </label>
+
+            {{ form.birth_year }}
+
+            {% if form.birth_year.help_text %}
+                <small class="field-help">
+                    {{ form.birth_year.help_text }}
+                </small>
+            {% endif %}
+
+            {% for error in form.birth_year.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+<!-- Football information -->
+<div class="player-form-section">
+    <h3>
+        <i class="bi bi-dribbble"></i>
+        Football Information
+    </h3>
+
+    <div class="player-form-grid">
+
+        <div class="player-field">
+            <label for="{{ form.shirt_number.id_for_label }}"
+                   class="form-label">
+                {{ form.shirt_number.label }}
+                <span class="required-star">*</span>
+            </label>
+
+            {{ form.shirt_number }}
+
+            {% if form.shirt_number.help_text %}
+                <small class="field-help">
+                    {{ form.shirt_number.help_text }}
+                </small>
+            {% endif %}
+
+            {% for error in form.shirt_number.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="player-field">
+            <label for="{{ form.main_position.id_for_label }}"
+                   class="form-label">
+                {{ form.main_position.label }}
+                <span class="required-star">*</span>
+            </label>
+
+            {{ form.main_position }}
+
+            {% for error in form.main_position.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="player-field">
+            <label for="{{ form.preferred_foot.id_for_label }}"
+                   class="form-label">
+                {{ form.preferred_foot.label }}
+            </label>
+
+            {{ form.preferred_foot }}
+
+            {% for error in form.preferred_foot.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="player-field">
+            <label for="{{ form.secondary_position.id_for_label }}"
+                   class="form-label">
+                {{ form.secondary_position.label }}
+            </label>
+
+            {{ form.secondary_position }}
+
+            {% for error in form.secondary_position.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+
+
+        <div class="player-field">
+            <label for="{{ form.height.id_for_label }}"
+                   class="form-label">
+                {{ form.height.label }}
+            </label>
+
+            {{ form.height }}
+
+            {% for error in form.height.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+<!-- Player image -->
+<div class="player-form-section">
+    <h3>
+        <i class="bi bi-camera"></i>
+        Player Photo
+    </h3>
+
+    <div class="player-field">
+        <label for="{{ form.image.id_for_label }}"
+               class="form-label">
+            {{ form.image.label }}
+        </label>
+
+        {{ form.image }}
+
+        <small class="field-help">
+            Add a photo to personalize the player's profile.
+        </small>
+
+        {% for error in form.image.errors %}
+            <div class="invalid-feedback d-block">
+                {{ error }}
+            </div>
+        {% endfor %}
+    </div>
+</div>

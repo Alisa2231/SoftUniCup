@@ -20,7 +20,7 @@ def player_add_view(request, team_slug):
     else:
         form = PlayerAddForm(team=team)
 
-    context = {'form': form, 'team': team, 'page_title': f'Add Player to {team.name}'}
+    context = {'form': form, 'team': team, 'page_title': f'Add Player to {team.name} | SoftUni Cup'}
     return render(request, 'players/add_player.html', context)
 
 def player_edit_view(request, team_slug, pk):
@@ -34,7 +34,7 @@ def player_edit_view(request, team_slug, pk):
     else:
         form = PlayerUpdateForm(instance=player, team=team)
 
-    context = {'form': form, 'team': team, 'player': player, 'page_title': f'Edit Player of {team.name}'}
+    context = {'form': form, 'team': team, 'player': player, 'page_title': f'Update Player {player.first_name} {player.last_name} | SoftUni Cup'}
     return render(request, 'players/update_player.html', context)
 
 def player_delete_view(request, team_slug, pk):
@@ -44,12 +44,12 @@ def player_delete_view(request, team_slug, pk):
         player.delete()
         return redirect('teams:details', slug=team_slug)
 
-    context = {'team': team, 'player': player, 'page_title': f'Delete Player of {team.name}'}
+    context = {'team': team, 'player': player, 'page_title': f'Delete Player {player.first_name} {player.last_name} | SoftUni Cup'}
     return render(request, 'players/delete_player.html', context)
 
 def player_details_view(request, team_slug, pk):
     team = get_object_or_404(Team, slug=team_slug)
     player = get_object_or_404(Player, team=team, pk=pk)
 
-    context = {'team': team, 'player': player, 'page_title': f'Player Details for {player.first_name} {player.last_name}'}
+    context = {'team': team, 'player': player, 'page_title': f'Player Details for {player.first_name} {player.last_name} | SoftUni Cup'}
     return render(request, 'players/player_details.html', context)

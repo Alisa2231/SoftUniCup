@@ -34,20 +34,20 @@
                         <div class="team-logo-wrapper">
                             {% if team.logo %}
                                 <img src="{{ team.logo.url }}"
-                                     alt="{{ team.name }} logo"
+                                     alt="{{ team|capfirst }} logo"
                                      class="team-logo">
                             {% else %}
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcb-I7MlY_JylyWWVYe2-RkfNDeRfz5yq5kFnRhEhUwA&s=10"
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLet_01HYjerRE4UyOllF48Cl4_tqkaQiVm0q_nvryOA&s=10"
                                      alt="Default team logo"
                                      class="team-logo">
                             {% endif %}
                         </div>
 
-                        <h2 class="team-name">{{ team.name }}</h2>
+                        <h2 class="team-name">{{ team|capfirst }}</h2>
 
                         <p class="team-city">
                             <i class="bi bi-geo-alt-fill"></i>
-                            {{ team.city }}
+                            {{ team.city|capfirst }}
                         </p>
 
                     </a>
@@ -58,7 +58,7 @@
                         <div class="coach-image-wrapper">
                             {% if team.coach_image %}
                                 <img src="{{ team.coach_image.url }}"
-                                     alt="Photo of {{ team.coach_name }}"
+                                     alt="Photo of {{ team.coach_name|capfirst }}"
                                      class="coach-image">
                             {% else %}
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYZnMyonIwXS4djGAqZ4g9iKPHk2FjS0mJq7gBq5zVHw&s=10"
@@ -69,7 +69,7 @@
 
                         <div class="coach-info">
                             <span class="coach-label">HEAD COACH</span>
-                            <p class="coach-name">{{ team.coach_name }}</p>
+                            <p class="coach-name">{{ team.coach_name|capfirst }}</p>
                         </div>
                     </div>
 

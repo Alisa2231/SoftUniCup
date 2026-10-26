@@ -1,0 +1,31 @@
+<div class="finish-game-info-grid">
+    <div class="finish-game-info-item">
+        <span class="finish-game-info-label">
+            <i class="bi bi-geo-alt"></i>
+            Location
+        </span>
+        <span class="finish-game-info-value">
+            {{ game.location|capfirst }}
+        </span>
+    </div>
+
+    <div class="finish-game-info-item">
+        <span class="finish-game-info-label">
+            <i class="bi bi-calendar-event"></i>
+            Date and Time
+        </span>
+        <span class="finish-game-info-value">
+            {{ game.date_and_time|date:"d M Y, H:i" }}
+        </span>
+    </div>
+
+    <div class="finish-game-info-item">
+        <span class="finish-game-info-label">
+            <i class="bi bi-person-badge"></i>
+            Referee
+        </span>
+        <span class="finish-game-info-value">
+            {{ game.referee|capfirst }}
+        </span>
+    </div>
+</div>

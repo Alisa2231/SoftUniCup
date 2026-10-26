@@ -6,11 +6,21 @@
     <div class="container">
 
         <div class="form-intro text-center">
+            <span class="section-kicker">TEAM MANAGEMENT</span>
             <h1 class="section-title">Update Team Details</h1>
-            <p class="section-title-team-name">{{ team }}</p>
-{#            <p class="section-subtitle">#}
-{#                Review your team's details below and make any necessary changes.#}
-{#            </p>#}
+            <div class="player-team-badge">
+                {% if team.logo %}
+                    <img src="{{ team.logo.url }}"
+                         alt="{{ team|capfirst }} logo">
+                {% else %}
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLet_01HYjerRE4UyOllF48Cl4_tqkaQiVm0q_nvryOA&s=10"
+                         alt="Default team logo">
+                {% endif %}
+
+                <span>{{ team|capfirst }}</span>
+                <span class="team-badge-divider">|</span>
+                <span>{{ team.city|capfirst }}</span>
+            </div>
         </div>
 
         <div class="form-card mx-auto">
@@ -51,7 +61,7 @@
 
                 <div class="d-flex flex-column flex-sm-row gap-3 mt-4">
                     <button type="submit" class="btn btn-accent btn-lg flex-grow-1">
-                        Update Team Details<i class="bi bi-arrow-right ms-2"></i>
+                        Save Changes<i class="bi bi-arrow-right ms-2"></i>
                     </button>
 
                     <a href="{% url 'teams:details' slug=team.slug %}" class="btn btn-light btn-lg px-4">

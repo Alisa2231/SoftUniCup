@@ -1,0 +1,45 @@
+<div class="finish-game-scoreboard">
+
+    <!-- Host Score -->
+    <div class="finish-game-score-field">
+        <label for="{{ form.goals_host.id_for_label }}">
+            {{ game.host_team.name|capfirst }}
+            <span>HOME</span>
+        </label>
+
+        {{ form.goals_host }}
+
+        {% for error in form.goals_host.errors %}
+            <div class="game-field-error">
+                <i class="bi bi-exclamation-circle"></i>
+                {{ error }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="finish-game-score-separator">:</div>
+
+    <!-- Guest Score -->
+    <div class="finish-game-score-field">
+        <label for="{{ form.goals_guest.id_for_label }}">
+            {{ game.guest_team.name|capfirst }}
+            <span>AWAY</span>
+        </label>
+
+        {{ form.goals_guest }}
+
+        {% for error in form.goals_guest.errors %}
+            <div class="game-field-error">
+                <i class="bi bi-exclamation-circle"></i>
+                {{ error }}
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<p class="finish-game-score-help">
+    <i class="bi bi-info-circle"></i>
+    Enter 0 if a team did not score.
+    Both scores are required.
+</p>

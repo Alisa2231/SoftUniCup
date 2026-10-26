@@ -24,7 +24,7 @@
                 </p>
                 <h1>Match Details</h1>
                 <p>
-                    {{ game.host_team.name }} vs {{ game.guest_team.name }}
+                    {{ game.host_team|capfirst }} vs {{ game.guest_team|capfirst }}
                 </p>
             </div>
 
@@ -55,7 +55,7 @@
                     <div class="scoreboard-team-logo">
                         {% if game.host_team.logo %}
                             <img src="{{ game.host_team.logo.url }}"
-                                 alt="{{ game.host_team.name }} logo">
+                                 alt="{{ game.host_team|capfirst }} logo">
                         {% else %}
                             <i class="bi bi-shield-fill"></i>
                         {% endif %}
@@ -65,11 +65,11 @@
 
                     <a href="{% url 'teams:details' slug=game.host_team.slug %}"
                        class="scoreboard-team-name">
-                        {{ game.host_team.name }}
+                        {{ game.host_team|capfirst }}
                     </a>
 
                     <span class="scoreboard-team-city">
-                        {{ game.host_team.city }}
+                        {{ game.host_team.city|capfirst }}
                     </span>
                 </div>
 
@@ -119,7 +119,7 @@
                     <div class="scoreboard-team-logo">
                         {% if game.guest_team.logo %}
                             <img src="{{ game.guest_team.logo.url }}"
-                                 alt="{{ game.guest_team.name }} logo">
+                                 alt="{{ game.guest_team|capfirst }} logo">
                         {% else %}
                             <i class="bi bi-shield-fill"></i>
                         {% endif %}
@@ -129,11 +129,11 @@
 
                     <a href="{% url 'teams:details' slug=game.guest_team.slug %}"
                        class="scoreboard-team-name">
-                        {{ game.guest_team.name }}
+                        {{ game.guest_team|capfirst }}
                     </a>
 
                     <span class="scoreboard-team-city">
-                        {{ game.guest_team.city }}
+                        {{ game.guest_team.city|capfirst }}
                     </span>
                 </div>
             </div>
@@ -149,7 +149,7 @@
                 </span>
                 <span>
                     <i class="bi bi-geo-alt"></i>
-                    {{ game.location }}
+                    {{ game.location|capfirst }}
                 </span>
             </div>
         </section>
@@ -229,7 +229,7 @@
                         Venue
                     </span>
                     <span class="game-info-value">
-                        {{ game.location }}
+                        {{ game.location|capfirst }}
                     </span>
                 </div>
 
@@ -239,7 +239,7 @@
                         Referee
                     </span>
                     <span class="game-info-value">
-                        {{ game.referee }}
+                        {{ game.referee|capfirst }}
                     </span>
                 </div>
 

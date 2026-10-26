@@ -67,7 +67,7 @@
                                 <div class="game-team-logo">
                                     {% if game.host_team.logo %}
                                         <img src="{{ game.host_team.logo.url }}"
-                                             alt="{{ game.host_team.name }} logo">
+                                             alt="{{ game.host_team|capfirst }} logo">
                                     {% else %}
                                         <i class="bi bi-shield-fill"></i>
                                     {% endif %}
@@ -75,9 +75,9 @@
 
                                 <div class="game-team-info">
                                     <span class="game-team-role">HOME</span>
-                                    <h3>{{ game.host_team.name }}</h3>
+                                    <h3>{{ game.host_team|capfirst }}</h3>
                                     <span class="game-team-city">
-                                        {{ game.host_team.city }}
+                                        {{ game.host_team.city|capfirst }}
                                     </span>
                                 </div>
                             </div>
@@ -97,16 +97,16 @@
                             <div class="game-team game-team-guest">
                                 <div class="game-team-info">
                                     <span class="game-team-role">AWAY</span>
-                                    <h3>{{ game.guest_team.name }}</h3>
+                                    <h3>{{ game.guest_team|capfirst }}</h3>
                                     <span class="game-team-city">
-                                        {{ game.guest_team.city }}
+                                        {{ game.guest_team.city|capfirst }}
                                     </span>
                                 </div>
 
                                 <div class="game-team-logo">
                                     {% if game.guest_team.logo %}
                                         <img src="{{ game.guest_team.logo.url }}"
-                                             alt="{{ game.guest_team.name }} logo">
+                                             alt="{{ game.guest_team|capfirst }} logo">
                                     {% else %}
                                         <i class="bi bi-shield-fill"></i>
                                     {% endif %}
@@ -189,7 +189,7 @@
                                 <div class="game-team-logo">
                                     {% if game.host_team.logo %}
                                         <img src="{{ game.host_team.logo.url }}"
-                                             alt="{{ game.host_team.name }} logo">
+                                             alt="{{ game.host_team|capfirst }} logo">
                                     {% else %}
                                         <i class="bi bi-shield-fill"></i>
                                     {% endif %}
@@ -198,10 +198,10 @@
                                 <div class="game-team-info">
                                     <span class="game-team-role">HOME</span>
                                     <h3 class="{% if game.goals_host > game.goals_guest %}game-winner{% endif %}">
-                                        {{ game.host_team.name }}
+                                        {{ game.host_team|capfirst }}
                                     </h3>
                                     <span class="game-team-city">
-                                        {{ game.host_team.city }}
+                                        {{ game.host_team.city|capfirst }}
                                     </span>
                                 </div>
                             </div>
@@ -231,17 +231,17 @@
                                 <div class="game-team-info">
                                     <span class="game-team-role">AWAY</span>
                                     <h3 class="{% if game.goals_guest > game.goals_host %}game-winner{% endif %}">
-                                        {{ game.guest_team.name }}
+                                        {{ game.guest_team|capfirst }}
                                     </h3>
                                     <span class="game-team-city">
-                                        {{ game.guest_team.city }}
+                                        {{ game.guest_team.city|capfirst }}
                                     </span>
                                 </div>
 
                                 <div class="game-team-logo">
                                     {% if game.guest_team.logo %}
                                         <img src="{{ game.guest_team.logo.url }}"
-                                             alt="{{ game.guest_team.name }} logo">
+                                             alt="{{ game.guest_team|capfirst }} logo">
                                     {% else %}
                                         <i class="bi bi-shield-fill"></i>
                                     {% endif %}

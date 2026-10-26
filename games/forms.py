@@ -7,6 +7,11 @@ class UpcomingGameBaseForm(forms.ModelForm):
     class Meta:
         model = Game
         exclude = ['status', 'goals_host', 'goals_guest']
+        labels = {
+            'host_team': 'Host Team',
+            'guest_team': 'Guest Team',
+            'date_and_time': 'Date and Time',
+        }
         widgets = {
             'location': forms.TextInput(attrs={'placeholder': 'Enter match location'}),
             'date_and_time': forms.DateTimeInput(format='%Y-%m-%dT%H:%M', attrs={'type': 'datetime-local'}),

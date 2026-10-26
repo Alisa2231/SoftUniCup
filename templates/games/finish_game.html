@@ -85,16 +85,16 @@
                                 <div class="update-game-team-logo">
                                     {% if game.host_team.logo %}
                                         <img src="{{ game.host_team.logo.url }}"
-                                             alt="{{ game.host_team.name }} logo">
+                                             alt="{{ game.host_team|capfirst }} logo">
                                     {% else %}
                                         <i class="bi bi-shield-fill"></i>
                                     {% endif %}
                                 </div>
 
                                 <span class="update-game-team-role">HOME</span>
-                                <h4>{{ game.host_team.name }}</h4>
+                                <h4>{{ game.host_team|capfirst }}</h4>
                                 <span class="update-game-team-city">
-                                    {{ game.host_team.city }}
+                                    {{ game.host_team.city|capfirst }}
                                 </span>
                             </div>
 
@@ -107,16 +107,16 @@
                                 <div class="update-game-team-logo">
                                     {% if game.guest_team.logo %}
                                         <img src="{{ game.guest_team.logo.url }}"
-                                             alt="{{ game.guest_team.name }} logo">
+                                             alt="{{ game.guest_team|capfirst }} logo">
                                     {% else %}
                                         <i class="bi bi-shield-fill"></i>
                                     {% endif %}
                                 </div>
 
                                 <span class="update-game-team-role">AWAY</span>
-                                <h4>{{ game.guest_team.name }}</h4>
+                                <h4>{{ game.guest_team|capfirst }}</h4>
                                 <span class="update-game-team-city">
-                                    {{ game.guest_team.city }}
+                                    {{ game.guest_team.city|capfirst }}
                                 </span>
                             </div>
 
@@ -136,37 +136,8 @@
                             </div>
                         </div>
 
-                        <div class="finish-game-info-grid">
-                            <div class="finish-game-info-item">
-                                <span class="finish-game-info-label">
-                                    <i class="bi bi-geo-alt"></i>
-                                    Location
-                                </span>
-                                <span class="finish-game-info-value">
-                                    {{ game.location }}
-                                </span>
-                            </div>
+                        {% include 'games/finish-game-info-grid.html' %}
 
-                            <div class="finish-game-info-item">
-                                <span class="finish-game-info-label">
-                                    <i class="bi bi-calendar-event"></i>
-                                    Date and Time
-                                </span>
-                                <span class="finish-game-info-value">
-                                    {{ game.date_and_time|date:"d M Y, H:i" }}
-                                </span>
-                            </div>
-
-                            <div class="finish-game-info-item">
-                                <span class="finish-game-info-label">
-                                    <i class="bi bi-person-badge"></i>
-                                    Referee
-                                </span>
-                                <span class="finish-game-info-value">
-                                    {{ game.referee }}
-                                </span>
-                            </div>
-                        </div>
                     </section>
 
                     <!-- Editable Final Score -->
@@ -181,52 +152,9 @@
                                 <p>Enter the number of goals scored by each team.</p>
                             </div>
                         </div>
+                        
+                        {% include 'games/finish-game-scoreboard.html' %}
 
-                        <div class="finish-game-scoreboard">
-
-                            <!-- Host Score -->
-                            <div class="finish-game-score-field">
-                                <label for="{{ form.goals_host.id_for_label }}">
-                                    {{ game.host_team.name }}
-                                    <span>HOME</span>
-                                </label>
-
-                                {{ form.goals_host }}
-
-                                {% for error in form.goals_host.errors %}
-                                    <div class="game-field-error">
-                                        <i class="bi bi-exclamation-circle"></i>
-                                        {{ error }}
-                                    </div>
-                                {% endfor %}
-                            </div>
-
-                            <div class="finish-game-score-separator">:</div>
-
-                            <!-- Guest Score -->
-                            <div class="finish-game-score-field">
-                                <label for="{{ form.goals_guest.id_for_label }}">
-                                    {{ game.guest_team.name }}
-                                    <span>AWAY</span>
-                                </label>
-
-                                {{ form.goals_guest }}
-
-                                {% for error in form.goals_guest.errors %}
-                                    <div class="game-field-error">
-                                        <i class="bi bi-exclamation-circle"></i>
-                                        {{ error }}
-                                    </div>
-                                {% endfor %}
-                            </div>
-
-                        </div>
-
-                        <p class="finish-game-score-help">
-                            <i class="bi bi-info-circle"></i>
-                            Enter 0 if a team did not score.
-                            Both scores are required.
-                        </p>
                     </section>
 
                     <!-- Confirmation Note -->

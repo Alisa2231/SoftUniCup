@@ -19,6 +19,17 @@ class PlayerBaseForm(forms.ModelForm):
             'height': forms.NumberInput(attrs={'placeholder': 'Enter height in cm', 'class': 'form-control'}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
         }
+        labels = {
+            'first_name': "First Name",
+            'last_name': "Last Name",
+            'birth_year': "Birth Year",
+            'shirt_number': "Shirt Number",
+            'main_position': "Main Position",
+            'secondary_position': "Secondary Position",
+            'preferred_foot': "Preferred Foot",
+            'height': "Height (cm)",
+            'image': "Upload Image",
+        }
         help_texts = {
             'shirt_number': 'Must be unique in the team',
         }

@@ -227,15 +227,6 @@ img {
     background: var(--pitch-green);
 }
 
-.hero-scroll {
-    position: absolute;
-    bottom: 22px;
-    left: 50%;
-    color: var(--pitch-green);
-    font-size: 1.35rem;
-    transform: translateX(-50%);
-}
-
 /* =========================================
    GENERAL PAGE SECTIONS
 ========================================= */
@@ -276,7 +267,7 @@ img {
 
 .section-title-team-name{
     color: var(--forest-green);
-    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-size: 200%;
     font-weight: 850;
 }
 

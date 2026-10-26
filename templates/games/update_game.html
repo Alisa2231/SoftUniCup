@@ -89,16 +89,16 @@
                                 <div class="update-game-team-logo">
                                     {% if game.host_team.logo %}
                                         <img src="{{ game.host_team.logo.url }}"
-                                             alt="{{ game.host_team.name }} logo">
+                                             alt="{{ game.host_team|capfirst }} logo">
                                     {% else %}
                                         <i class="bi bi-shield-fill"></i>
                                     {% endif %}
                                 </div>
 
                                 <span class="update-game-team-role">HOME</span>
-                                <h4>{{ game.host_team.name }}</h4>
+                                <h4>{{ game.host_team|capfirst }}</h4>
                                 <span class="update-game-team-city">
-                                    {{ game.host_team.city }}
+                                    {{ game.host_team.city|capfirst }}
                                 </span>
                             </div>
 
@@ -112,16 +112,16 @@
                                 <div class="update-game-team-logo">
                                     {% if game.guest_team.logo %}
                                         <img src="{{ game.guest_team.logo.url }}"
-                                             alt="{{ game.guest_team.name }} logo">
+                                             alt="{{ game.guest_team|capfirst }} logo">
                                     {% else %}
                                         <i class="bi bi-shield-fill"></i>
                                     {% endif %}
                                 </div>
 
                                 <span class="update-game-team-role">AWAY</span>
-                                <h4>{{ game.guest_team.name }}</h4>
+                                <h4>{{ game.guest_team|capfirst }}</h4>
                                 <span class="update-game-team-city">
-                                    {{ game.guest_team.city }}
+                                    {{ game.guest_team.city|capfirst }}
                                 </span>
                             </div>
 
@@ -149,63 +149,8 @@
                             </div>
                         </div>
 
-                        <div class="game-form-grid">
+                        {% include 'games/game-form-grid.html' %}
 
-                            <!-- Location -->
-                            <div class="game-form-field">
-                                <label for="{{ form.location.id_for_label }}"
-                                       class="form-label">
-                                    {{ form.location.label }}
-                                    <span class="game-required">*</span>
-                                </label>
-
-                                {{ form.location }}
-
-                                {% for error in form.location.errors %}
-                                    <div class="game-field-error">
-                                        <i class="bi bi-exclamation-circle"></i>
-                                        {{ error }}
-                                    </div>
-                                {% endfor %}
-                            </div>
-
-                            <!-- Date and Time -->
-                            <div class="game-form-field">
-                                <label for="{{ form.date_and_time.id_for_label }}"
-                                       class="form-label">
-                                    {{ form.date_and_time.label }}
-                                    <span class="game-required">*</span>
-                                </label>
-
-                                {{ form.date_and_time }}
-
-                                {% for error in form.date_and_time.errors %}
-                                    <div class="game-field-error">
-                                        <i class="bi bi-exclamation-circle"></i>
-                                        {{ error }}
-                                    </div>
-                                {% endfor %}
-                            </div>
-
-                            <!-- Referee -->
-                            <div class="game-form-field game-form-field-full">
-                                <label for="{{ form.referee.id_for_label }}"
-                                       class="form-label">
-                                    {{ form.referee.label }}
-                                    <span class="game-required">*</span>
-                                </label>
-
-                                {{ form.referee }}
-
-                                {% for error in form.referee.errors %}
-                                    <div class="game-field-error">
-                                        <i class="bi bi-exclamation-circle"></i>
-                                        {{ error }}
-                                    </div>
-                                {% endfor %}
-                            </div>
-
-                        </div>
                     </section>
 
                     <!-- Information Note -->
@@ -226,7 +171,7 @@
 
                 <!-- Form Actions -->
                 <div class="game-form-actions">
-                    <a href="{% url 'games:details' slug=game.slug %}"
+                    <a .="{% url 'games:details' slug=game.slug %}"
                        class="game-form-cancel">
                         <i class="bi bi-x-lg"></i>
                         Cancel

@@ -18,12 +18,18 @@
 
         <div class="team-preview">
             <div class="team-preview-logo">
-                <i class="bi bi-shield-fill"></i>
+                {% if player.image %}
+                    <img src="{{ player.image.url }}"
+                         alt="{{ player.first_name|capfirst }} {{ player.last_name|capfirst }}">
+                {% else %}
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYZnMyonIwXS4djGAqZ4g9iKPHk2FjS0mJq7gBq5zVHw&s=10"
+                         alt="Default player photo">
+                {% endif %}
             </div>
 
             <div class="team-preview-info">
-                <h2>{{ player.first_name }} {{ player.last_name }}</h2>
-                <p>{{ team.name }} {{ team.city }}</p>
+                <h2>{{ player.first_name|capfirst }} {{ player.last_name|capfirst }}</h2>
+                <p>{{ team|capfirst }}</p>
             </div>
         </div>
 

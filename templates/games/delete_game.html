@@ -5,13 +5,6 @@
 <section class="delete-game-page">
     <div class="delete-game-container">
 
-        <!-- Back Link -->
-{#        <a href="{% url 'games:details' slug=game.slug %}"#}
-{#           class="delete-game-back">#}
-{#            <i class="bi bi-arrow-left"></i>#}
-{#            Back to Match Details#}
-{#        </a>#}
-
         <!-- Confirmation Card -->
         <div class="delete-game-card">
 
@@ -36,14 +29,14 @@
                     <div class="delete-game-team-logo">
                         {% if game.host_team.logo %}
                             <img src="{{ game.host_team.logo.url }}"
-                                 alt="{{ game.host_team.name }} logo">
+                                 alt="{{ game.host_team|capfirst }} logo">
                         {% else %}
                             <i class="bi bi-shield-fill"></i>
                         {% endif %}
                     </div>
 
                     <span class="delete-game-team-role">HOME</span>
-                    <strong>{{ game.host_team.name }}</strong>
+                    <strong>{{ game.host_team|capfirst }}</strong>
                 </div>
 
                 <div class="delete-game-match-center">
@@ -64,14 +57,14 @@
                     <div class="delete-game-team-logo">
                         {% if game.guest_team.logo %}
                             <img src="{{ game.guest_team.logo.url }}"
-                                 alt="{{ game.guest_team.name }} logo">
+                                 alt="{{ game.guest_team|capfirst }} logo">
                         {% else %}
                             <i class="bi bi-shield-fill"></i>
                         {% endif %}
                     </div>
 
                     <span class="delete-game-team-role">AWAY</span>
-                    <strong>{{ game.guest_team.name }}</strong>
+                    <strong>{{ game.guest_team|capfirst }}</strong>
                 </div>
 
             </div>
@@ -85,12 +78,12 @@
 
                 <div>
                     <i class="bi bi-geo-alt"></i>
-                    <span>{{ game.location }}</span>
+                    <span>{{ game.location|capfirst }}</span>
                 </div>
 
                 <div>
                     <i class="bi bi-person-badge"></i>
-                    <span>{{ game.referee }}</span>
+                    <span>{{ game.referee|capfirst }}</span>
                 </div>
             </div>
 

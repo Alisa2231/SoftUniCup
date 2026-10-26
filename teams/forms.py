@@ -30,8 +30,8 @@ class TeamBaseForm(forms.ModelForm):
         }
 
         error_messages = {
-            'name': {'required': 'Name is a required field.'},
-            'city': {'required': 'City is a required field.'},
+            'name': {'required': 'Team Name is a required field.'},
+            'city': {'required': 'Team City is a required field.'},
             'coach_name': {'required': 'The name of the coach is required.'},
         }
 

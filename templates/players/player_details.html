@@ -8,7 +8,7 @@
         <nav class="player-breadcrumb" aria-label="Breadcrumb">
             <a href="{% url 'teams:details' slug=team.slug %}">
                 <i class="bi bi-shield"></i>
-                {{ team.name }}
+                {{ team }}
             </a>
             <i class="bi bi-chevron-right"></i>
             <span>Player Details</span>
@@ -20,7 +20,7 @@
                 <div class="player-profile-image">
                     {% if player.image %}
                         <img src="{{ player.image.url }}"
-                             alt="{{ player.first_name }} {{ player.last_name }}">
+                             alt="{{ player.first_name|capfirst }} {{ player.last_name|capfirst }}">
                     {% else %}
                         <div class="player-image-placeholder">
                             <i class="bi bi-person-fill"></i>
@@ -34,11 +34,11 @@
                         PLAYER PROFILE
                     </p>
 
-                    <h1>{{ player.first_name }} {{ player.last_name }}</h1>
+                    <h1>{{ player.first_name|capfirst }} {{ player.last_name|capfirst }}</h1>
 
                     <p class="player-team-name">
                         <i class="bi bi-shield-fill"></i>
-                        {{ team.name }}
+                        {{ team|capfirst }}
                     </p>
 
                     <div class="player-profile-tags">
@@ -49,7 +49,7 @@
                         {% if player.nationality %}
                             <span class="player-nationality-tag">
                                 <i class="bi bi-globe"></i>
-                                {{ player.nationality }}
+                                {{ player.nationality|capfirst }}
                             </span>
                         {% endif %}
                     </div>
@@ -103,21 +103,21 @@
                     <div class="player-info-row">
                         <span class="player-info-label">First Name</span>
                         <span class="player-info-value">
-                            {{ player.first_name }}
+                            {{ player.first_name|capfirst }}
                         </span>
                     </div>
 
                     <div class="player-info-row">
                         <span class="player-info-label">Last Name</span>
                         <span class="player-info-value">
-                            {{ player.last_name }}
+                            {{ player.last_name|capfirst }}
                         </span>
                     </div>
 
                     <div class="player-info-row">
                         <span class="player-info-label">Nationality</span>
                         <span class="player-info-value">
-                            {{ player.nationality }}
+                            {{ player.nationality|capfirst }}
                         </span>
                     </div>
 
@@ -202,22 +202,22 @@
 
             <div class="player-team-card-content">
                 <span class="player-info-label">CURRENT TEAM</span>
-                <h2>{{ team.name }}</h2>
-                <p>
-                    <i class="bi bi-geo-alt"></i>
-                    {{ team.city }}
-                </p>
+                <h2>{{ team|capfirst }}</h2>
+{#                <p>#}
+{#                    <i class="bi bi-geo-alt"></i>#}
+{#                    {{ team.city|capfirst }}#}
+{#                </p>#}
             </div>
 
             {% if team.logo %}
                 <img class="player-team-logo"
                      src="{{ team.logo.url }}"
-                     alt="{{ team.name }} logo">
+                     alt="{{ team|capfirst }} logo">
             {% endif %}
 
             <a href="{% url 'teams:details' slug=team.slug %}"
                class="player-team-link"
-               aria-label="View {{ team.name }} details">
+               aria-label="View {{ team|capfirst }} details">
                 <i class="bi bi-arrow-up-right"></i>
             </a>
         </section>

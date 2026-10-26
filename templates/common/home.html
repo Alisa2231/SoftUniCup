@@ -1,6 +1,6 @@
 {% extends 'common/base.html' %}
-
 {% load static %}
+
 {% block content %}
     <section class="hero-section">
         <div class="hero-overlay"></div>
@@ -23,12 +23,12 @@
 
             <div class="d-flex flex-column flex-sm-row
                         justify-content-center gap-3 mt-4">
-                <a href="/teams/add/" class="btn btn-accent btn-lg px-5">
+                <a href="{% url 'teams:add' %}" class="btn btn-accent btn-lg px-5">
                     Register Your Team
                     <i class="bi bi-arrow-right ms-2"></i>
                 </a>
 
-                <a href="/teams/" class="btn btn-outline-light btn-lg px-5">
+                <a href="{% url 'teams:list' %}" class="btn btn-outline-light btn-lg px-5">
                     Explore Teams
                 </a>
             </div>
@@ -40,8 +40,8 @@
             </div>
         </div>
 
-        <div class="hero-scroll">
-            <i class="bi bi-chevron-down"></i>
-        </div>
+{#        <div class="hero-scroll">#}
+{#            <i class="bi bi-chevron-down"></i>#}
+{#        </div>#}
     </section>
 {% endblock %}

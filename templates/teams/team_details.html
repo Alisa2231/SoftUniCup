@@ -12,19 +12,19 @@
                 <div class="team-profile-logo">
                     {% if team.logo %}
                         <img src="{{ team.logo.url }}"
-                             alt="{{ team.name }} logo">
+                             alt="{{ team|capfirst }} logo">
                     {% else %}
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcb-I7MlY_JylyWWVYe2-RkfNDeRfz5yq5kFnRhEhUwA&s=10"
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLet_01HYjerRE4UyOllF48Cl4_tqkaQiVm0q_nvryOA&s=10"
                              alt="Default team logo">
                     {% endif %}
                 </div>
 
                 <div class="team-profile-heading">
                     <span class="profile-eyebrow">CLUB PROFILE</span>
-                    <h1>{{ team.name }}</h1>
+                    <h1>{{ team|capfirst }}</h1>
                     <p class="team-profile-city">
                         <i class="bi bi-geo-alt-fill"></i>
-                        {{ team.city }}
+                        {{ team.city|capfirst }}
                     </p>
 
                     {% if team.established_year %}
@@ -67,7 +67,7 @@
 
             <div class="team-stat-card">
                 <span class="team-stat-label">PLAYERS</span>
-                <strong class="team-stat-value">{{ team.players.count|default:'-' }}</strong>
+                <strong class="team-stat-value">{{ team.players.count }}</strong>
                 <span class="team-stat-caption">Registered squad</span>
             </div>
 
@@ -97,7 +97,7 @@
                 <div class="coach-profile-photo">
                     {% if team.coach_image %}
                         <img src="{{ team.coach_image.url }}"
-                             alt="Photo of {{ team.coach_name }}">
+                             alt="Photo of {{ team.coach_name|capfirst }}">
                     {% else %}
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYZnMyonIwXS4djGAqZ4g9iKPHk2FjS0mJq7gBq5zVHw&s=10"
                              alt="Default coach photo">
@@ -105,7 +105,7 @@
                 </div>
 
                 <div class="coach-profile-info">
-                    <h3>{{ team.coach_name }}</h3>
+                    <h3>{{ team.coach_name|capfirst }}</h3>
                     <span class="coach-role">HEAD COACH</span>
 
                     <div class="coach-contact-list">
@@ -163,9 +163,9 @@
                         <div class="game-matchup">
                             <span>
                                 {% if game.host_team_id == team.id %}
-                                    {{ team.name }}
+                                    {{ team|capfirst }}
                                 {% else %}
-                                    {{ game.host_team.name }}
+                                    {{ game.host_team|capfirst }}
                                 {% endif %}
                             </span>
 
@@ -173,16 +173,16 @@
 
                             <span>
                                 {% if game.guest_team_id == team.id %}
-                                    {{ team.name }}
+                                    {{ team|capfirst }}
                                 {% else %}
-                                    {{ game.guest_team.name }}
+                                    {{ game.guest_team|capfirst }}
                                 {% endif %}
                             </span>
                         </div>
 
                         <div class="game-location-team-details">
                             <i class="bi bi-geo-alt"></i>
-                            {{ game.location }}
+                            {{ game.location|capfirst }}
                         </div>
                     </article>
                 {% empty %}
@@ -213,18 +213,18 @@
                         </div>
 
                         <div class="game-matchup">
-                            <span>{{ game.host_team.name }}</span>
+                            <span>{{ game.host_team|capfirst }}</span>
 
                             <strong class="game-score-team-details">
                                 {{ game.goals_host }} - {{ game.goals_guest }}
                             </strong>
 
-                            <span>{{ game.guest_team.name }}</span>
+                            <span>{{ game.guest_team|capfirst }}</span>
                         </div>
 
                         <div class="game-location-team-details">
                             <i class="bi bi-geo-alt"></i>
-                            {{ game.location }}
+                            {{ game.location|capfirst }}
                         </div>
                     </article>
                 {% empty %}
@@ -235,12 +235,6 @@
                 {% endfor %}
             </div>
         </section>
-
-
-
-
-
-
 
         <!-- Team roster -->
         <section class="details-section">
@@ -264,7 +258,7 @@
                         <div class="roster-player-photo">
                             {% if player.image %}
                                 <img src="{{ player.image.url }}"
-                                     alt="{{ player.first_name }} {{ player.last_name }}">
+                                     alt="{{ player.first_name|capfirst }} {{ player.last_name|capfirst }}">
                             {% else %}
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYZnMyonIwXS4djGAqZ4g9iKPHk2FjS0mJq7gBq5zVHw&s=10"
                                      alt="Default player photo">
@@ -272,7 +266,7 @@
                         </div>
 
                         <div class="roster-player-info">
-                            <strong>{{ player.first_name }} {{ player.last_name }}</strong>
+                            <strong>{{ player.first_name|capfirst }} {{ player.last_name|capfirst }}</strong>
                             <span>{{ player.get_main_position_display }}</span>
                         </div>
 
