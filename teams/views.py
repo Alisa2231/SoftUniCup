@@ -50,8 +50,8 @@ class TeamDetailsView(DetailView):
         context = super().get_context_data(**kwargs)
         context['page_title'] = f"{self.object.name} | SoftUni Cup"
         context['current_points'] = current_points
-        context['upcoming_games'] = Game.objects.filter(status='UP')
-        context['finished_games'] = Game.objects.filter(status='F')
+        context['upcoming_games'] = Game.objects.filter(status='UP', host_team=self.object) | Game.objects.filter(status='UP', guest_team=self.object)
+        context['finished_games'] = Game.objects.filter(status='F', host_team=self.object) | Game.objects.filter(status='F', guest_team=self.object)
         context['players'] = self.object.players.order_by('shirt_number')
         return context
 

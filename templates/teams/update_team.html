@@ -6,10 +6,26 @@
     <div class="container">
 
         <div class="form-intro text-center">
-            <h1 class="section-title">Update Team Details for <span>{{ team.name }} {{ team.city }}</span></h1>
+            <h1 class="section-title">Update Team Details</h1>
+            <p class="section-title-team-name">{{ team }}</p>
+{#            <p class="section-subtitle">#}
+{#                Review your team's details below and make any necessary changes.#}
+{#            </p>#}
         </div>
 
         <div class="form-card mx-auto">
+
+            <div class="form-card-header">
+                <div class="form-icon">
+                    <i class="bi bi-pencil-square"></i>
+                </div>
+                <div>
+                    <h2 class="form-card-title">Team Update</h2>
+                    <p class="form-card-subtitle mb-0">
+                        Edit your team's details below.
+                    </p>
+                </div>
+            </div>
 
             <form method="post" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}

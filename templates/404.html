@@ -1,0 +1,65 @@
+{% extends 'common/base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="error-page">
+    <div class="error-page-container">
+
+        <!-- Decorative Background Elements -->
+        <div class="error-decoration error-decoration-one"></div>
+        <div class="error-decoration error-decoration-two"></div>
+
+        <div class="error-content">
+
+            <!-- Football Icon -->
+            <div class="error-football">
+                <i class="bi bi-dribbble"></i>
+            </div>
+
+            <!-- Error Code -->
+            <div class="error-code" aria-label="Error 404">
+                <span>4</span>
+                <span class="error-code-zero">0</span>
+                <span>4</span>
+            </div>
+
+            <!-- Message -->
+            <div class="error-message">
+                <p class="error-eyebrow">
+                    <i class="bi bi-flag-fill"></i>
+                    PAGE NOT FOUND
+                </p>
+
+                <h1>Looks like this page is offside!</h1>
+
+                <p class="error-description">
+                    The page you're looking for has wandered off the pitch.
+                    It may have been moved, deleted, or never existed.
+                    Let's get you back in the game!
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="error-actions">
+                <a href="{% url 'home' %}" class="error-home-button">
+                    <i class="bi bi-house-door-fill"></i>
+                    Back to Homepage
+                </a>
+
+                <a href="{% url 'games:list' %}" class="error-games-button">
+                    <i class="bi bi-calendar3"></i>
+                    View Matches
+                </a>
+            </div>
+
+            <!-- Footer Note -->
+            <div class="error-bottom-note">
+                <i class="bi bi-trophy-fill"></i>
+                <span>SOFTUNI CUP</span>
+                <i class="bi bi-trophy-fill"></i>
+            </div>
+
+        </div>
+    </div>
+</main>
+{% endblock %}
