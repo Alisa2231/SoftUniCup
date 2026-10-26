@@ -1,0 +1,416 @@
+/* =========================================
+   SOFTUNI CUP — DESIGN SYSTEM
+========================================= */
+
+:root {
+    --pitch-green: #b9f66b;
+    --forest-green: #287a4b;
+    --deep-green: #10251d;
+    --midnight: #101a25;
+    --surface: #ffffff;
+    --page-bg: #f4f6f2;
+    --text-main: #17251d;
+    --text-muted: #6d786f;
+    --border-color: #e1e7df;
+    --radius: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", sans-serif;
+    background: var(--page-bg);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* =========================================
+   HEADER / NAVIGATION RIBBON
+========================================= */
+
+.site-header {
+    position: relative;
+    z-index: 1000;
+    background: var(--midnight);
+    border-bottom: 3px solid var(--pitch-green);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+}
+
+.site-header .navbar {
+    min-height: 82px;
+}
+
+.brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff !important;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+.brand-logo strong {
+    color: var(--pitch-green);
+}
+
+.brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    color: var(--midnight);
+    background: var(--pitch-green);
+    font-size: 1.35rem;
+}
+
+.site-header .nav-link {
+    color: #d4ddd7;
+    font-size: 0.94rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.site-header .nav-link:hover,
+.site-header .nav-link:focus {
+    color: var(--pitch-green);
+}
+
+.site-header .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.site-header .navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(185, 246, 107, 0.2);
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.btn-accent {
+    color: var(--midnight);
+    background: var(--pitch-green);
+    border: 1px solid var(--pitch-green);
+    border-radius: 8px;
+    font-weight: 750;
+    transition: transform 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.btn-accent:hover,
+.btn-accent:focus {
+    color: var(--midnight);
+    background: #a5e653;
+    border-color: #a5e653;
+    transform: translateY(-2px);
+    box-shadow: 0 7px 18px rgba(185, 246, 107, 0.2);
+}
+
+.btn-outline-dark,
+.btn-outline-light {
+    border-radius: 8px;
+    font-weight: 650;
+}
+
+/* =========================================
+   HOME HERO
+========================================= */
+
+.hero-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 82px);
+    overflow: hidden;
+    color: #fff;
+    background-color: var(--deep-green);
+    background-image:
+        url("https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=2200&q=85");
+    background-position: center;
+    background-size: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7, 18, 13, 0.88),
+            rgba(7, 18, 13, 0.48),
+            rgba(7, 18, 13, 0.75)
+        ),
+        linear-gradient(
+            0deg,
+            rgba(7, 18, 13, 0.45),
+            transparent 60%
+        );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    padding-top: 90px;
+    padding-bottom: 90px;
+}
+
+.hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+    color: var(--pitch-green);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.hero-eyebrow i {
+    font-size: 0.55rem;
+}
+
+.hero-title {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(3.6rem, 11vw, 8rem);
+    font-weight: 950;
+    line-height: 0.98;
+    letter-spacing: -4px;
+    text-shadow: 0 5px 30px rgba(0, 0, 0, 0.25);
+}
+
+.hero-title span {
+    color: var(--pitch-green);
+}
+
+.hero-description {
+    max-width: 610px;
+    margin: 26px auto 0;
+    color: #e2e9e4;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    line-height: 1.8;
+}
+
+.hero-bottom-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 72px;
+    color: #d1ddd4;
+    font-size: 0.68rem;
+    font-weight: 750;
+    letter-spacing: 2px;
+}
+
+.hero-bottom-label span {
+    width: 34px;
+    height: 2px;
+    background: var(--pitch-green);
+}
+
+/* =========================================
+   GENERAL PAGE SECTIONS
+========================================= */
+
+.page-section {
+    min-height: 65vh;
+    padding: 76px 0 90px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.section-kicker {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--forest-green);
+    font-size: 0.74rem;
+    font-weight: 850;
+    letter-spacing: 2px;
+}
+
+.section-title {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 850;
+    letter-spacing: -1.5px;
+    line-height: 1.15;
+}
+
+.section-title > span {
+    color: var(--forest-green);
+}
+
+.section-title-team-name{
+    color: var(--forest-green);
+    font-size: 200%;
+    font-weight: 850;
+}
+
+.section-subtitle {
+    margin: 12px 0 0;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.site-footer {
+    color: #fff;
+    background: var(--midnight);
+    border-top: 3px solid var(--pitch-green);
+}
+
+.footer-brand {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 850;
+    letter-spacing: 1px;
+}
+
+.footer-brand i {
+    margin-right: 6px;
+    color: var(--pitch-green);
+}
+
+.footer-brand:hover {
+    color: var(--pitch-green);
+}
+
+.footer-caption {
+    color: #aebbb2;
+    font-size: 0.82rem;
+}
+
+/* =========================================
+   RESPONSIVE ADJUSTMENTS
+========================================= */
+
+@media (max-width: 991.98px) {
+    .site-header .navbar-collapse {
+        padding: 16px 0 22px;
+    }
+
+    .site-header .navbar-nav {
+        align-items: stretch !important;
+    }
+
+    .site-header .nav-link {
+        padding: 10px 0;
+    }
+
+    .site-header .nav-item .btn {
+        margin-top: 10px;
+    }
+
+    .hero-section {
+        min-height: 680px;
+    }
+
+    .hero-content {
+        padding-top: 75px;
+        padding-bottom: 75px;
+    }
+
+    .profile-stats {
+        gap: 25px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .site-header .navbar {
+        min-height: 72px;
+    }
+
+    .brand-logo {
+        font-size: 0.92rem;
+    }
+
+    .brand-icon {
+        width: 37px;
+        height: 37px;
+    }
+
+    .hero-section {
+        min-height: 650px;
+    }
+
+    .hero-title {
+        letter-spacing: -2px;
+    }
+
+    .hero-eyebrow {
+        font-size: 0.64rem;
+        letter-spacing: 1.5px;
+    }
+
+    .hero-bottom-label {
+        gap: 8px;
+        margin-top: 48px;
+        font-size: 0.56rem;
+        letter-spacing: 1px;
+    }
+
+    .hero-bottom-label span {
+        width: 18px;
+    }
+
+    .page-section,
+    .form-page-section {
+        padding: 50px 0 60px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+    }
+
+    .form-card {
+        padding: 22px 18px;
+        border-radius: 14px;
+    }
+
+    .profile-crest {
+        width: 145px;
+        height: 145px;
+        font-size: 5.5rem;
+    }
+
+    .profile-stats {
+        gap: 22px;
+    }
+
+    .profile-stat-number {
+        font-size: 1.5rem;
+    }
+
+    .roster-table thead th,
+    .roster-table tbody td {
+        padding: 14px 16px;
+    }
+}
