@@ -12,7 +12,6 @@ class AddTeamView(CreateView):
     extra_context = {'page_title': 'Register a Team | SoftUni Cup'}
     model = Team
     form_class = TeamAddForm
-    # success_url = reverse_lazy('teams:list')
 
     def get_success_url(self):
         return reverse('teams:details', kwargs={'slug': self.object.slug})
@@ -23,7 +22,6 @@ class TeamListView(ListView):
     model = Team
     context_object_name = 'teams'
     ordering = 'name'
-    # paginate_by = 6
 
 class TeamDetailsView(DetailView):
     template_name = 'teams/team_details.html'
