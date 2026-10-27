@@ -1,6 +1,7 @@
 # ⚽ SoftUni Cup
 
-**SoftUni Cup** is a football tournament management web application developed using Python and Django. 
+**SoftUni Cup** is a football tournament management web application developed using Python and Django.
+
 Built for the love of football.
 
 The application allows users to manage football teams, players, and matches, track results, and view tournament standings.
@@ -9,6 +10,7 @@ The application allows users to manage football teams, players, and matches, tra
 
 The goal of SoftUni Cup is to provide a simple and intuitive way to organize a football tournament. Users can register teams and players, schedule matches, record results, and follow team performance through an automatically calculated standings table.
 
+---
 ## Installation
 
 **1. Clone the repository**
@@ -60,6 +62,8 @@ Open **http://127.0.0.1:8000/** in your browser.
 
 No environment variables, API keys, external service credentials, or preconfigured accounts are required for local testing. The application uses SQLite.
 
+---
+
 ## Features
 
 - **Teams:** Create, view, edit, and delete football teams.
@@ -77,6 +81,8 @@ No environment variables, API keys, external service credentials, or preconfigur
 - CSS
 - Bootstrap 5
 
+---
+
 ## Usage
 
 After launching the application:
@@ -89,6 +95,7 @@ After launching the application:
 
 All data can be created through the application's interface. No initial database records or administrator access are required.
 
+---
 ## Testing
 
 To test the application, start with a fresh database after applying migrations, then use the navigation menu to create teams, players, and games.
@@ -97,6 +104,7 @@ Verify that create, view, edit, and delete operations work correctly, that form 
 
 The application does not require preloaded sample data.
 
+---
 ## Author and Credits
 
 Developed by **Asya Nikolova**, a proud football mom, as a Django Basics course project at **SoftUni**.
@@ -105,4 +113,15 @@ Developed by **Asya Nikolova**, a proud football mom, as a Django Basics course 
 
 This project was created for educational purposes.
 
+---
+
 ## Screenshots
+![Home Page](screenshots/home-page.png)  
+
+![Teams](screenshots/teams.png)
+
+![Players](screenshots/players.png)
+
+![Games](screenshots/games.png)
+
+![Standings](screenshots/standings.png)
