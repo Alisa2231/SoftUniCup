@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
@@ -38,7 +39,7 @@ class Player(models.Model):
     preferred_foot = models.CharField(max_length=1, choices = PreferredFoot, null=True, blank=True)
     height = models.PositiveIntegerField(validators=[MinValueValidator(0)], null=True, blank=True)
     # weight = models.PositiveIntegerField(null=True, blank=True)
-    image = models.ImageField(upload_to='players/', null=True, blank=True)
+    image = CloudinaryField('image', null=True, blank=True)
     # slug = models.SlugField(unique=True, editable=False)
     team = models.ForeignKey('teams.Team', on_delete=models.CASCADE, related_name='players', editable=False)
 
