@@ -1,0 +1,42 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    container_name: softunicup_web
+    restart: always
+    command: gunicorn softunicup.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+    depends_on:
+      - db
+    environment:
+      - DEBUG=0
+      - DATABASE_URL=postgres://postgres:w0nderLand@PostgreSQL@db:5432/softunicup
+
+  db:
+    image: postgres:16
+    container_name: softunicup_db
+    restart: always
+    environment:
+      POSTGRES_DB: softunicup
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: w0nderLand@PostgreSQL
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  nginx:
+    image: nginx:latest
+    container_name: softunicup_nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/app/staticfiles
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:
+  static_volume:
