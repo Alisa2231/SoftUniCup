@@ -7,12 +7,12 @@ services:
     command: gunicorn softunicup.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/app
-      - static_volume:/app/staticfiles/
+      - static_volume:/app/staticfiles
     depends_on:
       - db
     environment:
       - DEBUG=0
-      - DATABASE_URL=postgres://postgres:w0nderLand@PostgreSQL@db:5432/softunicup
+      - DATABASE_URL=postgres://postgres:w0nderLandAtPostgreSQL@db:5432/softunicup
 
   db:
     image: postgres:16
